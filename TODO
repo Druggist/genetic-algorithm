@@ -1,0 +1,12 @@
+TODO:
+1. rozbudowac Generator
+2. przerywaltasksc Taksow - czy przerywamy czy nie (cos ie oplaca, akra czy nie)
+3. klasa Generations:
+  - f. celu
+  - usuwanie najslabszych
+  - odbudowanie populacji
+  - crossing over + mutacja
+
+4. warunek stopu: 
+  - czasowa
+  - wspolczynnik wzgledem porzpednich wylot.
