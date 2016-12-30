@@ -1,10 +1,5 @@
 #include "maitenance.h"
 
-Maitenance::Maitenance(int i, int m_t, int stime){
-	m_time = m_t;
-	op_time = stime;
-	id = i;
-}
 
 int Maitenance::get_mt(){
 	return m_time;
@@ -16,4 +11,16 @@ int Maitenance::get_id(){
 
 int Maitenance::get_opt(){
 	return op_time;
+}
+
+void Maitenance::set_id(int i){
+  id = i;
+}
+
+void Maitenance::set_mt(int m){
+  m_time = m;
+}
+
+void Maitenance::set_opt(int o){
+  op_time = o;
 }

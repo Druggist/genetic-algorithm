@@ -7,10 +7,12 @@ class Maitenance{
 		int m_time; //start time
 		int op_time; //duration
 	public:
-		Maitenance(int, int, int);
 		int get_mt();
 		int get_opt();
 		int get_id();
+        void set_id(int);
+        void set_mt(int);
+        void set_opt(int);
 };
 
 #endif // MAITENANCE_H
