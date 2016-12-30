@@ -5,11 +5,11 @@ void Machine::set_id(int i){
 }
 
 void Machine::set_start(int i){
-	stopt = i;
+	startt = i;
 }
 
 void Machine::set_stop(int i){
-	startt = i;
+	stopt = i;
 }
 
 int Machine::get_id(){
