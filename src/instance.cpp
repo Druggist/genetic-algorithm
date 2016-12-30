@@ -1,4 +1,4 @@
-#include "generator1.h"
+#include "instance.h"
 
 void Instance::generate_instance(int quantity, int max_time, bool verbose){
   srand(time(NULL));
