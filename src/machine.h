@@ -18,10 +18,12 @@ class Machine{
 		void set_start(int);
 		void set_stop(int);
 		bool add(int, vector<Task>, vector<Maitenance>);
+		bool add(Task_t, vector<Maitenance>);
+		void addt(int, int, vector<Task>);
+		void addt(int, Task_t);
 		int get_id();
 		int get_srt();
 		int get_sop();
-		void addt(int, int, vector<Task>);
 };
 
 #endif // MACHINE_H

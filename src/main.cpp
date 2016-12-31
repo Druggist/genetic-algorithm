@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
 		cout<<"Usage: "<<argv[0]<<" <inputfile> <outputfile>";
 		return 1;
 	}
-
+/*
 	vector<Task> task_v;
 	vector<Maitenance> maitenance_v;
 	string inputFN, outputFN;
@@ -94,5 +94,5 @@ int main(int argc, char* argv[]){
 		cout<< "schedule " << i << std::endl <<"\t" << ord.machine2.get_sop() << std::endl;
 	}
 	cout << temp << " " << m << std::endl;
-	return 0;
+	return 0;*/
 }

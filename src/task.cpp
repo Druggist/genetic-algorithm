@@ -23,15 +23,20 @@ void Task::set_op_time(int o, int t){
 	else if (o == 2) op2_time = t;
 	else exit(1);
 }
-
+/*
 Task_t::Task_t(int i){
 	punished = false;
 	punishment = 0;
 	id = i;
-}
+}*/
 
-int Task_t::get_id(){
-	return id;
+Task_t::Task_t(Task task){
+	punished = false;
+	punishment = 0;
+	id = task.get_id();
+	rt = task.get_rt();
+	op1_time = get_op_time(1);
+	op2_time = get_op_time(2);
 }
 
 bool Task_t::if_punished(){
@@ -53,10 +58,6 @@ void Task_t::punishit(int p){
 
 void Task_t::punish(){
 	punishment++;
-}
-
-int Task_t::get_rt(){
-	return rt;
 }
 
 int Task_t::startt(){

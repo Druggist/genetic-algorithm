@@ -13,9 +13,11 @@ class Order{
 		vector<int> ord;
 		int exec_t;
 	public: 
+		Order(vector<Task_t>, vector<Task_t>, vector<Maitenance>);
 		Machine machine1;
 		Machine machine2;
 		void initialization(vector<int>, vector<Task>, vector<Maitenance>);
+		vector<Task_t> get_tasks(int);
 };
 
 #endif // ORDER_H

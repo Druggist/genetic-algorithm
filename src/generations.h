@@ -15,7 +15,7 @@ using std::mt19937_64;
 using std::uniform_int_distribution;
 
 struct Instance{
-	Order order;
+	Order *order;
 	double rank;
 };
 
@@ -25,15 +25,19 @@ struct Less_than_rank{
 
 class Generations{
 	private: 
+		unsigned int population_id;
 		vector<Instance> previous_population;
 		vector<Instance> population;
-	public:
-		Generations();
-		void selection();
-		void rebuild();
+		vector<Maitenance> maintanance_v;
+		void remove_duplicates(vector<Task_t>&, int);
+		void rebuild(vector<Task_t>&, vector<Task_t>&);
+		bool crossing_over(int);
 		void remove_weak();
-		void crossing_over();
+		void selection();
 		void mutate();
 		void sort_population();
+	public:
+		void next_generation();
+		Generations(vector<Maitenance>);
 };
 #endif // GENERATIONS_H
