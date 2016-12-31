@@ -29,8 +29,8 @@ class Generations{
 		vector<Instance> previous_population;
 		vector<Instance> population;
 		vector<Maitenance> maintanance_v;
-		void remove_duplicates(vector<Task_t>&, int);
-		void rebuild(vector<Task_t>&, vector<Task_t>&);
+		void fix(vector<Task_t>&, vector<Task_t>&);
+		void rebuild(vector<Task_t>&, vector<Task_t>&, int, int);
 		bool crossing_over(int);
 		void remove_weak();
 		void selection();

@@ -10,8 +10,16 @@ void Generations::selection(){
 
 }
 
-void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2){
-
+void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, int resection_m1, int resection_m2){
+/*or (int i = 0; i < resection; i++){
+		for (int j = resection; j < tasks.size(); j++){
+			if (tasks[i].get_id() == tasks[j].get_id()){
+				population.erase(population.begin() + j);
+				break;
+			}
+		}
+	}*/
+		// TODO REMOVE DUPLICATES & ADD MISSING
 }
 
 void Generations::remove_weak(){
@@ -31,15 +39,8 @@ void Generations::remove_weak(){
 	this->previous_population = this->population;
 }
 
-void Generations::remove_duplicates(vector<Task_t>& tasks, int resection){
-	for (int i = 0; i < resection; i++){
-		for (int j = resection; j < tasks.size(); j++){
-			if (tasks[i].get_id() == tasks[j].get_id()){
-				population.erase(population.begin() + j);
-				break;
-			}
-		}
-	}
+void Generations::fix(vector<Task_t>& tasks_m1, std::vector<Task_t>& tasks_m2){
+	// TODO RESIZE & READYTIME
 }
 
 bool Generations::crossing_over(int instance_id){
@@ -52,19 +53,24 @@ bool Generations::crossing_over(int instance_id){
 	int instance2_num = random_instance(gen);
 	while(instance1_num == instance2_num) instance2_num = random_instance(gen);
 	vector<Task_t> tmp = previous_population[instance1_num].order->get_tasks(1);
-	int resection = floor(tmp.size() * random_resection(gen)/100.0);
-	if (resection <= 0) return false;
-	vector<Task_t> tasks_m1(&tmp[0], &tmp[resection - 1]);
+	int resection_m1 = floor(tmp.size() * random_resection(gen)/100.0);
+	if (resection_m1 <= 0) return false;
+	
+	vector<Task_t> tasks_m1(&tmp[0], &tmp[resection_m1 - 1]);
+	vector<Task_t> tasks_m1_2(&tmp[resection_m1], &tmp[tmp.size() - 1]);
+	tasks_m1.insert(tasks_m1.end(), tasks_m1_2.begin(), tasks_m1_2.end());
 	
 
 	tmp = previous_population[instance1_num].order->get_tasks(2);
-	vector<Task_t> tasks_m2(&tmp[resection], &tmp[tmp.size() - 1]);
-	resection = floor(tmp.size() * random_resection(gen)/100.0);
-	if (resection <= 0) return false;
+	int resection_m2 = floor(tmp.size() * random_resection(gen)/100.0);
+	if (resection_m2 <= 0) return false;
+	
+	vector<Task_t> tasks_m2(&tmp[0], &tmp[resection_m2 - 1]);
+	vector<Task_t> tasks_m2_2(&tmp[resection_m2], &tmp[tmp.size() - 1]);
+	tasks_m2.insert(tasks_m2.end(), tasks_m2_2.begin(), tasks_m2_2.end());
 
-	this->remove_duplicates(tasks_m1, resection);
-	this->remove_duplicates(tasks_m2, resection);
-	this->rebuild(tasks_m1, tasks_m2);
+	this->rebuild(tasks_m1, tasks_m2, resection_m1, resection_m2);
+	this->fix(tasks_m1, tasks_m2);
 
 	Instance *new_instance = new Instance;
 	new_instance->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
@@ -76,7 +82,7 @@ bool Generations::crossing_over(int instance_id){
 
 void Generations::mutate(){
 
-//	this->rebuild(tasks_m1, tasks_m2);
+//	this->fix(tasks_m1, tasks_m2);
 }
 
 inline bool Less_than_rank::operator() (const Instance& instance1, const Instance& instance2){
