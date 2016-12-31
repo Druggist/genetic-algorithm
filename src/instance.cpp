@@ -59,7 +59,7 @@ void Instance::dump_instance(string filename){
       file << task_v[i].get_op_time(1) << ";" << task_v[i].get_op_time(2) << ";" << "1" <<";" << "2" << ";" << task_v[i].get_rt() << ";" << endl;
     }
     for (vector<int>::size_type i = 0; i < maitenance_v.size(); i++){
-      file << maitenance_v[i].get_id() << ";" << maitenance_v[i].get_opt() << ";" << maitenance_v[i].get_mt() << ";" << endl;
+      file << maitenance_v[i].get_id() <<';' << 1 << ";" << maitenance_v[i].get_opt() << ";" << maitenance_v[i].get_mt() << ";" << endl;
     }
   }
   else{
@@ -77,9 +77,10 @@ void Instance::read_instance(string filename){
   fstream file;
   file.open(filename.c_str());
   if(file.good() == true){
-    getline(file, s);
+    getline(file, s); //ignoring one line
     getline(file, s);
       quantity = atoi(s.c_str());
+      std::cout << quantity << endl;
       for (int i = 0; i < quantity; i++){
         getline(file, s, ';');
         tmp = atoi(s.c_str());
@@ -93,9 +94,10 @@ void Instance::read_instance(string filename){
         tmp = atoi(s.c_str());
         t.set_rt(tmp);
         task_v.push_back(t);
+        std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
       }
     
-    while(!file.eof()){
+    for(int i = 0; i < quantity/5; i++){
       getline(file, s, ';');
       tmp = atoi(s.c_str());
       m.set_id(tmp);
@@ -106,6 +108,8 @@ void Instance::read_instance(string filename){
       getline(file, s, ';');
       tmp = atoi(s.c_str());
       m.set_mt(tmp);
+      maitenance_v.push_back(m);
+      std::cout <<  m.get_id() << ";" << m.get_opt() << ";" << m.get_mt() << ";" << endl;
     }
 
   }
