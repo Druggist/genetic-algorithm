@@ -66,6 +66,7 @@ void Instance::dump_instance(string filename){
     cerr<<"Cannot open and write to instance file!\n";
     exit(-1);
   }
+  file.close();
   clear_all();
 }
 
@@ -94,7 +95,7 @@ void Instance::read_instance(string filename){
         tmp = atoi(s.c_str());
         t.set_rt(tmp);
         task_v.push_back(t);
-        std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
+        //std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
       }
     
     for(int i = 0; i < quantity/5; i++){
@@ -109,7 +110,7 @@ void Instance::read_instance(string filename){
       tmp = atoi(s.c_str());
       m.set_mt(tmp);
       maitenance_v.push_back(m);
-      std::cout <<  m.get_id() << ";" << m.get_opt() << ";" << m.get_mt() << ";" << endl;
+      //std::cout <<  m.get_id() << ";" << m.get_opt() << ";" << m.get_mt() << ";" << endl;
     }
 
   }
@@ -117,6 +118,7 @@ void Instance::read_instance(string filename){
     cerr <<"Cannot open and read instance file!\n";
     exit(-1);
   }
+  file.close();
 }
 
 void Instance::clear_task_v(){
