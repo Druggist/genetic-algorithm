@@ -17,7 +17,9 @@ int main(int argc, char * argv[]){
   	filename = "file_" + std::to_string(i) + ".txt";
   	I.dump_instance(filename);
   }
+  //Instance I;
+  //I.read_instance("file_0.txt");
+
 
   return 0;
-
 }
