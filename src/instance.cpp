@@ -1,7 +1,17 @@
 #include "instance.h"
 
+/*void Instance::set_id(int i){
+  id = i;
+}
+
+void Instance::set_task_number(int t){
+  tasks_number = t;
+}*/
+
 void Instance::generate_instance(int quantity, int max_time, bool verbose){
   srand(time(NULL));
+  id = 1;
+  tasks_number = quantity;
   int t1_1, t1_2, rt, mt, opt;
   Task t;
   for (int i = 0; i < quantity; i++){
@@ -19,8 +29,11 @@ void Instance::generate_instance(int quantity, int max_time, bool verbose){
     task_v.push_back(t);
     //debug only:
     if (verbose == true){
-     std::cout << t1_1 << ";" << t1_2 << ";" << 1 << ";" << 2 << ";" << rt << endl;
+     std::cout << t1_1 << ";" << t1_2 << ";" << 1 << ";" << 2 << ";" << rt <<';'<< endl;
     }
+  }
+  if (verbose == true){
+    std::cout << "---------------------------------------------------------------------------\n";
   }
   Maitenance m;
   for (int i = 0; i < quantity/5; i++){
@@ -29,15 +42,18 @@ void Instance::generate_instance(int quantity, int max_time, bool verbose){
     m.set_mt(mt);
     m.set_opt(opt);
     m.set_id(i);
+    if (verbose == true){
+      std::cout << i << ';' << 1 << ';' << opt << ';' << mt << ';' << endl;
+    }
     maitenance_v.push_back(m);
   }
 }
 
 void Instance::dump_instance(string filename){
-  fstream file;
-  file.open(filename.c_str());
+  ofstream file(filename.c_str());
+  //file.open(filename.c_str());
   if (file.good() == true){
-    file << "****" << id << "****/n";
+    file << "****" << id << "****\n";
     file << tasks_number << endl;
     for(vector<int>::size_type i = 0; i < task_v.size(); i++){
       file << task_v[i].get_op_time(1) << ";" << task_v[i].get_op_time(2) << ";" << "1" <<";" << "2" << ";" << task_v[i].get_rt() << ";" << endl;
@@ -53,11 +69,11 @@ void Instance::dump_instance(string filename){
 }
 
 void Instance::read_instance(string filename){
-  fstream file;
   string s;
   int quantity, tmp;
   Task t;
   Maitenance m;
+  fstream file;
   file.open(filename.c_str());
   if(file.good() == true){
     getline(file, s);
@@ -105,3 +121,9 @@ void Instance::clear_task_v(){
 void Instance::clear_maitenance_v(){
   maitenance_v.clear();
 }
+
+void Instance::clear_all(){
+  clear_task_v();
+  clear_maitenance_v();
+}
+
