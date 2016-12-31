@@ -25,7 +25,7 @@ class Instance{
 	void clear_task_v();
 	void clear_maitenance_v();
 public:
-	void generate_instance(int, int, bool);
+	void generate_instance(int, int, int, bool);
 	void dump_instance(string);
 	void read_instance(string);
 	//void set_id(int);

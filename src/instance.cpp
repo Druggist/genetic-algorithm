@@ -8,9 +8,9 @@ void Instance::set_task_number(int t){
   tasks_number = t;
 }*/
 
-void Instance::generate_instance(int quantity, int max_time, bool verbose){
+void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
   srand(time(NULL));
-  id = 1;
+  id = identifier;
   tasks_number = quantity;
   int t1_1, t1_2, rt, mt, opt;
   Task t;
@@ -66,6 +66,7 @@ void Instance::dump_instance(string filename){
     cerr<<"Cannot open and write to instance file!\n";
     exit(-1);
   }
+  clear_all();
 }
 
 void Instance::read_instance(string filename){
