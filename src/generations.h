@@ -34,7 +34,7 @@ class Generations{
 		bool crossing_over(int);
 		void remove_weak();
 		void selection();
-		void mutate();
+		void mutate(int);
 		void sort_population();
 	public:
 		void next_generation();

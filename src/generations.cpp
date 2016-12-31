@@ -80,9 +80,29 @@ bool Generations::crossing_over(int instance_id){
 	return true;
 }
 
-void Generations::mutate(){
+void Generations::mutate(int instance_id){
+	random_device rd;
+	mt19937_64 gen(rd());
+	vector<Task_t> tasks_m1 = population[instance_id].order->get_tasks(1);
+	uniform_int_distribution<int> random_task_m1(0, tasks_m1.size() - 1);
+	vector<Task_t> tasks_m2 = population[instance_id].order->get_tasks(2);
+	uniform_int_distribution<int> random_task_m2(0, tasks_m2.size() - 1);
+	int task_m1[2], task_m2[2];
 
-//	this->fix(tasks_m1, tasks_m2);
+	task_m1[0] = random_task_m1(gen);
+	while(task_m1[0] == task_m1[1]) task_m1[1] = random_task_m1(gen);
+	task_m2[0] = random_task_m2(gen);
+	while(task_m2[0] == task_m2[1]) task_m2[1] = random_task_m2(gen);
+
+	iter_swap(tasks_m1.begin() + task_m1[0], tasks_m1.begin() + task_m1[1]);
+	iter_swap(tasks_m2.begin() + task_m2[0], tasks_m2.begin() + task_m2[1]);
+
+	this->fix(tasks_m1, tasks_m2);
+
+	Instance *new_instance = new Instance;
+	new_instance->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
+	new_instance->rank = 0;
+	population[instance_id] = *new_instance;
 }
 
 inline bool Less_than_rank::operator() (const Instance& instance1, const Instance& instance2){
@@ -101,7 +121,7 @@ void Generations::next_generation(){
 	remove_weak();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		crossing_over(i);
-		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate();
+		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate(i);
 	}
 	this->population_id++;
 }
