@@ -8,7 +8,6 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-//#include <ctime>
 
 using std::cout;
 using std::string;
