@@ -17,7 +17,7 @@ using std::vector;
 
 int main(int argc, char* argv[]){
 	if (argc < 3){
-		cout<<"Usage: "<<argv[0]<<" <inputfile> <outputfile>";
+		cout<<"Usage: "<<argv[0]<<" <inputfile> <outputfile>"<<endl;
 		return 1;
 	}
 /*

@@ -19,7 +19,5 @@ int main(int argc, char * argv[]){
   }
   //Instance I;
   //I.read_instance("file_0.txt");
-
-
   return 0;
 }
