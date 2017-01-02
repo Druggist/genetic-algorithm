@@ -3,6 +3,7 @@
 
 #include "order.h"
 #include "config.h"
+#include "instance.h"
 #include <vector>
 #include <algorithm>
 #include <math.h>

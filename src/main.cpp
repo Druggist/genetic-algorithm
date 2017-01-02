@@ -13,7 +13,7 @@ using std::cout;
 using std::string;
 using std::fstream;
 using std::vector;
-
+using std::endl;
 
 int main(int argc, char* argv[]){
 	if (argc < 3){

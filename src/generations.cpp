@@ -3,7 +3,18 @@
 Generations::Generations(vector<Maitenance> maintanance_v){
 	this->population_id = 0;
 	this->maintanance_v = maintanance_v;
-	
+    
+    /*
+    Instance I;
+    I.read_instance(filename);
+    vector <int> s;
+    int m = 2000;
+    int temp = 0;
+    for(int i = 0; i < )
+    this->previous_population = 
+    
+    
+    */    
 }
 
 void Generations::selection(){
@@ -14,7 +25,7 @@ void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, in
 	for (int x = 1; x < 3; x++){
 		vector<int> missing_tasks;
 		vector<int> duplicates;
-		vector<Task_t> all_tasks = previous_population[0].order->get_tasks(x);
+		vector<Task_t> all_tasks = previous_population[0].order->get_tasks(x); //wtf
 		int resection = (x == 1)?(resection_m1):(resection_m2);
 		vector<Task_t> tasks = (x == 1)?(tasks_m1):(tasks_m2);
 
