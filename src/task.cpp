@@ -1,6 +1,6 @@
 #include "task.h"
 
-int Task::get_id(){
+int Task::get_id() const{
 	return id;
 }
 
@@ -66,4 +66,10 @@ int Task_t::startt(){
 
 void Task_t::set_op_stime(int k){
 	op_stime = k;
+}
+
+bool Task_t::operator==(const Task_t& rhs){
+	if(
+		this->get_id() == rhs.get_id()) return true;
+	return false;
 }

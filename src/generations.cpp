@@ -11,15 +11,34 @@ void Generations::selection(){
 }
 
 void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, int resection_m1, int resection_m2){
-/*or (int i = 0; i < resection; i++){
-		for (int j = resection; j < tasks.size(); j++){
-			if (tasks[i].get_id() == tasks[j].get_id()){
-				population.erase(population.begin() + j);
-				break;
+	for (int x = 1; x < 3; x++){
+		vector<int> missing_tasks;
+		vector<int> duplicates;
+		vector<Task_t> all_tasks = previous_population[0].order->get_tasks(x);
+		int resection = (x == 1)?(resection_m1):(resection_m2);
+		vector<Task_t> tasks = (x == 1)?(tasks_m1):(tasks_m2);
+
+		for (int i = 0; i < resection; i++){
+			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i);
+			for (unsigned int j = resection; j < tasks.size(); j++){
+				if (tasks[i] == tasks[j]){
+					duplicates.push_back(j);
+					break;
+				}
 			}
 		}
-	}*/
-		// TODO REMOVE DUPLICATES & ADD MISSING
+		
+		for (unsigned int i = resection; i < tasks.size(); i++){
+			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i); 
+		}
+
+		for (unsigned int i = 0; i < duplicates.size(); i++){
+			tasks[duplicates[i]] = all_tasks[i];
+		}
+
+		if (x == 1) tasks_m1 = tasks;
+		else tasks_m2 = tasks;
+	}
 }
 
 void Generations::remove_weak(){

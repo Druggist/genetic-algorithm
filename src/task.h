@@ -8,7 +8,7 @@ struct Task{
 	int op1_time;
 	int op2_time;
 	int rt;
-	int get_id();
+	int get_id() const;
 	int get_rt();
 	int get_op_time(int);
 	void set_op_time(int, int);
@@ -30,6 +30,7 @@ class Task_t : public Task{
 		int startt();
 		int get_punish();
 		void set_op_stime(int);
+		bool operator== (const Task_t&);
 };
 
 #endif // TASK_H

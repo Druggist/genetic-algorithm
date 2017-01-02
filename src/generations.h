@@ -10,6 +10,7 @@
 
 using std::vector;
 using std::sort;
+using std::find;
 using std::random_device;
 using std::mt19937_64;
 using std::uniform_int_distribution;
