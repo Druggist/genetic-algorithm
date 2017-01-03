@@ -9,9 +9,22 @@ Generations::Generations(vector<Maitenance> maintanance_v){
     I.read_instance(filename);
     vector <int> s;
     int m = 2000;
-    int temp = 0;
-    for(int i = 0; i < )
-    this->previous_population = 
+    int tmp = 0;
+    vector <Order> orders;
+    for(int i = 0; i> I.task_v.length(); i++){
+    s.push_back(i);
+    }
+    for(int i = 0; i < 10; i++){
+    Order ord;
+    random_shuffle(s.begin(), s.end());
+    ord.initialization(s, I.task_v, I.maitenance_v);
+    orders.push_back(ord);
+    if(prd.machine2.get_sop() < m){
+    m = ord.machine2.get_sop)_;
+    temp = i;
+    }
+    }
+    this->previous_population = orders;
     
     
     */    

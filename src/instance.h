@@ -20,8 +20,10 @@ using std::string;
 using std::ofstream;
 class Instance{
 	int id, tasks_number;
+public:
 	vector<Task> task_v;
 	vector<Maitenance> maitenance_v;
+private:
 	void clear_task_v();
 	void clear_maitenance_v();
 public:
