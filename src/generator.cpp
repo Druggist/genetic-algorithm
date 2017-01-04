@@ -2,7 +2,7 @@
 
 int main(int argc, char * argv[]){
   
-  if (argc < 4){
+  if (argc != 4){
     std::cout << "Usage:\n" << argv[0] << "<number_of_instances> <number_of_tasks> <max_time> " << endl;
     exit(0);
   }
