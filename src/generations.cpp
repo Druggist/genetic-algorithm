@@ -3,31 +3,26 @@
 Generations::Generations(vector<Maitenance> maintanance_v){
 	this->population_id = 0;
 	this->maintanance_v = maintanance_v;
-    
-    /*
-    Instance I;
-    I.read_instance(filename);
-    vector <int> s;
-    int m = 2000;
-    int tmp = 0;
-    vector <Order> orders;
-    for(int i = 0; i> I.task_v.length(); i++){
-    s.push_back(i);
-    }
-    for(int i = 0; i < 10; i++){
-    Order ord;
-    random_shuffle(s.begin(), s.end());
-    ord.initialization(s, I.task_v, I.maitenance_v);
-    orders.push_back(ord);
-    if(prd.machine2.get_sop() < m){
-    m = ord.machine2.get_sop)_;
-    temp = i;
-    }
-    }
-    this->previous_population = orders;
-    
-    
-    */    
+	/*
+	Instance I;
+	vector <int> s;
+	vector <Order> orders;
+	int m = 2000;
+	int tmp = 0;
+	
+	I.read_instance(filename);
+	for(int i = 0; i> I.task_v.size(); i++) s.push_back(i);
+	for(int i = 0; i < 10; i++){
+		Order ord;
+		random_shuffle(s.begin(), s.end());
+		ord.initialization(s, I.task_v, I.maitenance_v);
+		orders.push_back(ord);
+		if(prd.machine2.get_sop() < m){
+			m = ord.machine2.get_sop();
+			temp = i;
+		}
+	}
+	*/
 }
 
 void Generations::selection(){
@@ -82,20 +77,16 @@ void Generations::remove_weak(){
 	this->previous_population = this->population;
 }
 
-void Generations::fix(vector<Task_t>& tasks_m1, std::vector<Task_t>& tasks_m2){
-	// TODO RESIZE & READYTIME
-}
-
-bool Generations::crossing_over(int instance_id){
+bool Generations::crossing_over(int chromosome_id){
 	random_device rd;
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_resection(_MIN_RESECTION_PCT, _MAX_RESECTION_PCT);
-	uniform_int_distribution<int> random_instance(0, floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1);
+	uniform_int_distribution<int> random_chromosome(0, floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1);
 	
-	int instance1_num = random_instance(gen);
-	int instance2_num = random_instance(gen);
-	while(instance1_num == instance2_num) instance2_num = random_instance(gen);
-	vector<Task_t> tmp = previous_population[instance1_num].order->get_tasks(1);
+	int chromosome1_num = random_chromosome(gen);
+	int chromosome2_num = random_chromosome(gen);
+	while(chromosome1_num == chromosome2_num) chromosome2_num = random_chromosome(gen);
+	vector<Task_t> tmp = previous_population[chromosome1_num].order->get_tasks(1);
 	int resection_m1 = floor(tmp.size() * random_resection(gen)/100.0);
 	if (resection_m1 <= 0) return false;
 	
@@ -104,7 +95,7 @@ bool Generations::crossing_over(int instance_id){
 	tasks_m1.insert(tasks_m1.end(), tasks_m1_2.begin(), tasks_m1_2.end());
 	
 
-	tmp = previous_population[instance1_num].order->get_tasks(2);
+	tmp = previous_population[chromosome1_num].order->get_tasks(2);
 	int resection_m2 = floor(tmp.size() * random_resection(gen)/100.0);
 	if (resection_m2 <= 0) return false;
 	
@@ -113,22 +104,21 @@ bool Generations::crossing_over(int instance_id){
 	tasks_m2.insert(tasks_m2.end(), tasks_m2_2.begin(), tasks_m2_2.end());
 
 	this->rebuild(tasks_m1, tasks_m2, resection_m1, resection_m2);
-	this->fix(tasks_m1, tasks_m2);
 
-	Instance *new_instance = new Instance;
-	new_instance->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
-	new_instance->rank = 0;
-	population[instance_id] = *new_instance;
+	Chromosome *new_chromosome = new Chromosome;
+	new_chromosome->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
+	new_chromosome->rank = 0;
+	population[chromosome_id] = *new_chromosome;
 
 	return true;
 }
 
-void Generations::mutate(int instance_id){
+void Generations::mutate(int chromosome_id){
 	random_device rd;
 	mt19937_64 gen(rd());
-	vector<Task_t> tasks_m1 = population[instance_id].order->get_tasks(1);
+	vector<Task_t> tasks_m1 = population[chromosome_id].order->get_tasks(1);
 	uniform_int_distribution<int> random_task_m1(0, tasks_m1.size() - 1);
-	vector<Task_t> tasks_m2 = population[instance_id].order->get_tasks(2);
+	vector<Task_t> tasks_m2 = population[chromosome_id].order->get_tasks(2);
 	uniform_int_distribution<int> random_task_m2(0, tasks_m2.size() - 1);
 	int task_m1[2], task_m2[2];
 
@@ -140,16 +130,14 @@ void Generations::mutate(int instance_id){
 	iter_swap(tasks_m1.begin() + task_m1[0], tasks_m1.begin() + task_m1[1]);
 	iter_swap(tasks_m2.begin() + task_m2[0], tasks_m2.begin() + task_m2[1]);
 
-	this->fix(tasks_m1, tasks_m2);
-
-	Instance *new_instance = new Instance;
-	new_instance->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
-	new_instance->rank = 0;
-	population[instance_id] = *new_instance;
+	Chromosome *new_chromosome = new Chromosome;
+	new_chromosome->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
+	new_chromosome->rank = 0;
+	population[chromosome_id] = *new_chromosome;
 }
 
-inline bool Less_than_rank::operator() (const Instance& instance1, const Instance& instance2){
-	return (instance1.rank < instance2.rank);
+inline bool Less_than_rank::operator() (const Chromosome& chromosome1, const Chromosome& chromosome2){
+	return (chromosome1.rank < chromosome2.rank);
 }
 
 void Generations::sort_population(){

@@ -16,20 +16,20 @@ using std::random_device;
 using std::mt19937_64;
 using std::uniform_int_distribution;
 
-struct Instance{
+struct Chromosome{
 	Order *order;
 	double rank;
 };
 
 struct Less_than_rank{
-	inline bool operator() (const Instance&, const Instance&);
+	inline bool operator() (const Chromosome&, const Chromosome&);
 };
 
 class Generations{
 	private: 
 		unsigned int population_id;
-		vector<Instance> previous_population;
-		vector<Instance> population;
+		vector<Chromosome> previous_population;
+		vector<Chromosome> population;
 		vector<Maitenance> maintanance_v;
 		void fix(vector<Task_t>&, vector<Task_t>&);
 		void rebuild(vector<Task_t>&, vector<Task_t>&, int, int);
