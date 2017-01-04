@@ -12,7 +12,8 @@ class Order{
 	private:
 		vector<int> ord;
 		int exec_t;
-	public: 
+	public:
+        Order();
 		Order(vector<Task_t>, vector<Task_t>, vector<Maitenance>);
 		Machine machine1;
 		Machine machine2;

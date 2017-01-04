@@ -1,5 +1,8 @@
 #include "order.h"
 
+Order::Order(){
+
+}
 Order::Order(vector<Task_t> task_m1_v, vector<Task_t> task_m2_v, vector<Maitenance> maitenance_v){
 	machine1.set_id(1);
 	machine1.set_start(0);

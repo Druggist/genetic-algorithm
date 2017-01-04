@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <math.h>
 #include <random>
+#include <string>
 
 using std::vector;
 using std::sort;
@@ -15,6 +16,8 @@ using std::find;
 using std::random_device;
 using std::mt19937_64;
 using std::uniform_int_distribution;
+using std::string;
+
 
 struct Chromosome{
 	Order *order;
@@ -40,6 +43,6 @@ class Generations{
 		void sort_population();
 	public:
 		void next_generation();
-		Generations(vector<Maitenance>);
+		Generations(vector<Maitenance>, string filename);
 };
 #endif // GENERATIONS_H

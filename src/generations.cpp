@@ -1,28 +1,26 @@
 #include "generations.h"
 
-Generations::Generations(vector<Maitenance> maintanance_v){
+Generations::Generations(vector<Maitenance> maintanance_v, string filename){
 	this->population_id = 0;
-	this->maintanance_v = maintanance_v;
-	/*
 	Instance I;
 	vector <int> s;
 	vector <Order> orders;
 	int m = 2000;
 	int tmp = 0;
-	
 	I.read_instance(filename);
-	for(int i = 0; i> I.task_v.size(); i++) s.push_back(i);
-	for(int i = 0; i < 10; i++){
-		Order ord;
+	for(vector<Task_t>::size_type i = 0; i> I.task_v.size(); i++) s.push_back(i);
+	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
+	    Order ord; //todo constructor
 		random_shuffle(s.begin(), s.end());
 		ord.initialization(s, I.task_v, I.maitenance_v);
 		orders.push_back(ord);
-		if(prd.machine2.get_sop() < m){
+		if(ord.machine2.get_sop() < m){
 			m = ord.machine2.get_sop();
-			temp = i;
+			tmp = i;
 		}
 	}
-	*/
+    this->maintanance_v = I.maitenance_v;
+	
 }
 
 void Generations::selection(){
