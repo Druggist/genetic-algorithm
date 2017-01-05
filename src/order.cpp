@@ -71,3 +71,7 @@ vector<Task_t> Order::get_tasks(int machine_id){
 		return machine2.mtasks_v;
 	}
 }
+
+int Order::get_exectime(){
+  return exec_t;
+}

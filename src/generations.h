@@ -39,10 +39,11 @@ class Generations{
 		bool crossing_over(int);
 		void remove_weak();
 		void selection();
+        int average();
 		void mutate(int);
 		void sort_population();
 	public:
 		void next_generation();
-		Generations(vector<Maitenance>, string filename);
+		Generations(string filename);
 };
 #endif // GENERATIONS_H

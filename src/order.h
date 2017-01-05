@@ -19,6 +19,7 @@ class Order{
 		Machine machine2;
 		void initialization(vector<int>, vector<Task>, vector<Maitenance>);
 		vector<Task_t> get_tasks(int);
+        int get_exectime();
 };
 
 #endif // ORDER_H

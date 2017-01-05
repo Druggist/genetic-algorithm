@@ -1,12 +1,13 @@
 #include "generations.h"
 
-Generations::Generations(vector<Maitenance> maintanance_v, string filename){
+Generations::Generations(string filename){
 	this->population_id = 0;
 	Instance I;
 	vector <int> s;
 	vector <Order> orders;
 	int m = 2000;
 	int tmp = 0;
+    Chromosome zero;
 	I.read_instance(filename);
 	for(vector<Task_t>::size_type i = 0; i> I.task_v.size(); i++) s.push_back(i);
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
@@ -19,12 +20,45 @@ Generations::Generations(vector<Maitenance> maintanance_v, string filename){
 			tmp = i;
 		}
 	}
+    zero.order = &orders;
+    zero.rank = 0;
+    this->population.push_back(zero);
+    this->previous_population.push_back(zero);
     this->maintanance_v = I.maitenance_v;
 	
 }
+int Generations::average(){
+  int av = 0;
+  for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
+    av += previous_population[i].order->get_exectime();
+  }
+  return av / _POPULATION_SIZE;
+}
 
 void Generations::selection(){
+  unsigned int av;
+  double r;
+  unsigned int counter = 0;
+  if (population_id == 0){
+    av = 0;
+  }
+  else{
+    av = average();
+  }
 
+  for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
+    r = ((population[i].order->get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order->get_exectime() * _EXEC_TIME_WEIGHT;
+    if (population[i].order->get_exectime() >= 0.80 * av){
+      counter++;
+    }
+    population[i].rank = r;
+  }
+  if (counter >= 0.30 * av){
+    remove_weak();
+  }
+  else{
+   // TODO: operate again on previous_population 
+  }
 }
 
 void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, int resection_m1, int resection_m2){
