@@ -2,6 +2,7 @@
 //TODO: time-based killing
 Generations::Generations(string filename){
 	this->population_id = 0;
+	this->begin_exec = clock();
 	Instance I;
 	vector <int> s;
 	vector <Order> orders;
@@ -92,6 +93,8 @@ void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, in
 
 		if (x == 1) tasks_m1 = tasks;
 		else tasks_m2 = tasks;
+
+		time_exceeded();
 	}
 }
 
@@ -109,6 +112,7 @@ void Generations::remove_weak(){
 		}
 		if (to_remove == 0) break;
 	}
+	time_exceeded();
 	this->previous_population = this->population;
 }
 
@@ -144,6 +148,7 @@ bool Generations::crossing_over(int chromosome_id){
 	new_chromosome->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
 	new_chromosome->rank = 0;
 	population[chromosome_id] = *new_chromosome;
+	time_exceeded();
 
 	return true;
 }
@@ -169,6 +174,7 @@ void Generations::mutate(int chromosome_id){
 	new_chromosome->order = new Order(tasks_m1, tasks_m2, this->maintanance_v);
 	new_chromosome->rank = 0;
 	population[chromosome_id] = *new_chromosome;
+	time_exceeded();
 }
 
 inline bool Less_than_rank::operator() (const Chromosome& chromosome1, const Chromosome& chromosome2){
@@ -177,6 +183,7 @@ inline bool Less_than_rank::operator() (const Chromosome& chromosome1, const Chr
 
 void Generations::sort_population(){
 	sort(population.begin(), population.end(), Less_than_rank());
+	time_exceeded();
 }
 
 void Generations::next_generation(){
@@ -190,4 +197,20 @@ void Generations::next_generation(){
 		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate(i);
 	}
 	this->population_id++;
+	time_exceeded();
+}
+
+bool Generations::time_exceeded(){
+	clock_t end = clock();
+	double elapsed_secs = double(end - this->begin_exec);
+	if(elapsed_secs > _EXEC_TIME_SECS) {
+		save_and_exit();
+		return true;
+	}
+	return false;
+}
+
+void Generations::save_and_exit(){
+	//TODO save data
+	exit();
 }
