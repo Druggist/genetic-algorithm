@@ -9,6 +9,7 @@
 #include <math.h>
 #include <random>
 #include <string>
+#include <cstdlib>
 
 using std::vector;
 using std::sort;
@@ -34,6 +35,7 @@ class Generations{
 		vector<Chromosome> previous_population;
 		vector<Chromosome> population;
 		vector<Maitenance> maintanance_v;
+		clock_t begin_exec;
 		void fix(vector<Task_t>&, vector<Task_t>&);
 		void rebuild(vector<Task_t>&, vector<Task_t>&, int, int);
 		bool crossing_over(int);
@@ -42,6 +44,8 @@ class Generations{
         int average();
 		void mutate(int);
 		void sort_population();
+		bool time_exceeded();
+		void save_and_exit();
 	public:
 		void next_generation();
 		Generations(string filename);
