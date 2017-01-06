@@ -206,6 +206,19 @@ void Generations::dump_generation(string filename){
   dump << "***" /*<< id*/ << "****" << endl;
   dump << population[0].order->get_exectime() /*<< gen_exec_time*/ << endl;
   dump << "M1:";
+  vector <Task_t> t;
+  t = population[0].order->get_tasks(1);
+  for(int i = 0; i < t.size(); i++){
+  	dump << t[i] << ',';
+  }
+  dump << endl;
+  t = population[0].order->get_tasks(2);
+  for(int i = 0; i < t.size(); i++){
+  	dump << t[i] << ',';
+  }
+  dump << endl;
+  dump << maitenance_v.size() << endl << '0' << endl;
+  dump.close();
   
 }
 bool Generations::time_exceeded(){
@@ -218,7 +231,7 @@ bool Generations::time_exceeded(){
 	return false;
 }
 
-void Generations::save_and_exit(){
-	//TODO save data
+void Generations::save_and_exit(string filename){
+	dump_generation(filename)
 	exit(0);
 }

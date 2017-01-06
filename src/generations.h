@@ -50,5 +50,6 @@ class Generations{
 		void next_generation();
 		Generations(string filename);
         void dump_generation(string filename);
+        void save_and_exit(string filename);
 };
 #endif // GENERATIONS_H
