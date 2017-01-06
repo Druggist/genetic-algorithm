@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
 	}
 	Generations gen(argv[1]);
 	gen.next_generation();
-	gen.dump_generation();
+	gen.dump_generation(string(argv[2]));
 
 	//
 	//do everything

@@ -217,7 +217,7 @@ void Generations::dump_generation(string filename){
   	dump << t[i] << ',';
   }
   dump << endl;
-  dump << maitenance_v.size() << endl << '0' << endl;
+  //dump << this->maitenance_v.size() << endl << '0' << endl;
   dump.close();
   
 }
@@ -232,6 +232,6 @@ bool Generations::time_exceeded(){
 }
 
 void Generations::save_and_exit(string filename){
-	dump_generation(filename)
+	dump_generation(filename);
 	exit(0);
 }
