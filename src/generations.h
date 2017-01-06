@@ -45,5 +45,6 @@ class Generations{
 	public:
 		void next_generation();
 		Generations(string filename);
+        void dump_generation(string filename);
 };
 #endif // GENERATIONS_H

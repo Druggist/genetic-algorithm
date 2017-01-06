@@ -191,3 +191,12 @@ void Generations::next_generation(){
 	}
 	this->population_id++;
 }
+
+void Generations::dump_generation(string filename){
+  ofstream dump;
+  dump.open(filename.c_str());
+  dump << "***" /*<< id*/ << "****" << endl;
+  dump << population[0].order->get_exectime() /*<< gen_exec_time*/ << endl;
+  dump << "M1:";
+  
+}
