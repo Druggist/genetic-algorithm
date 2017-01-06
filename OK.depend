@@ -1,0 +1,80 @@
+# depslib dependency file v1.0
+1483739908 source:e:\git\ok\generations.cpp
+	"generations.h"
+
+1483738692 e:\git\ok\generations.h
+	"order.h"
+	"config.h"
+	"instance.h"
+	<vector>
+	<algorithm>
+	<math.h>
+	<random>
+	<string>
+	<cstdlib>
+
+1483738692 e:\git\ok\order.h
+	"machine.h"
+	"task.h"
+	"maitenance.h"
+	<vector>
+
+1483738692 e:\git\ok\machine.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+
+1483738693 e:\git\ok\task.h
+	<cstdlib>
+
+1483738692 e:\git\ok\maitenance.h
+
+1483738692 e:\git\ok\config.h
+
+1483738692 e:\git\ok\instance.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+	<fstream>
+	<string>
+	<iostream>
+	<ctime>
+	<cstdlib>
+
+1483739377 source:e:\git\ok\generator.cpp
+	"generator.h"
+
+1483738692 e:\git\ok\generator.h
+	"instance.cpp"
+
+1483738692 e:\git\ok\instance.cpp
+	"instance.h"
+
+1483738692 source:e:\git\ok\instance.cpp
+	"instance.h"
+
+1483738692 source:e:\git\ok\machine.cpp
+	"machine.h"
+
+1483741977 source:e:\git\ok\main.cpp
+	"machine.h"
+	"maitenance.h"
+	"order.h"
+	"task.h"
+	"generations.h"
+	<iostream>
+	<vector>
+	<algorithm>
+	<string>
+	<cstdlib>
+	<fstream>
+
+1483738692 source:e:\git\ok\maitenance.cpp
+	"maitenance.h"
+
+1483738692 source:e:\git\ok\order.cpp
+	"order.h"
+
+1483738692 source:e:\git\ok\task.cpp
+	"task.h"
+

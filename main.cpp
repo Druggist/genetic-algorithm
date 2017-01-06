@@ -21,8 +21,10 @@ int main(int argc, char* argv[]){
 		cout<<"Usage: "<<argv[0]<<" <inputfile> <outputfile>"<<endl;
 		return 1;
 	}
-	Generations gen(argv[1]);
+	Generations gen("file_.txt");
+	cout<<"done"<<endl;
 	gen.next_generation();
+	cout<<"dupa"<<endl;
 	gen.dump_generation(string(argv[2]));
 
 	//
@@ -77,12 +79,12 @@ int main(int argc, char* argv[]){
 		cout<<"Got some error during opening the file\n";
 		return 1;
 	}
-	
+
 	for(vector<Task>::size_type i = 0; i < task_v.size(); i++){
 		cout << task_v[i].get_id() <<";" << task_v[i].get_op_time(1) << ";" << task_v[i].get_op_time(2)<<";"<<task_v[i].get_rt()<<std::endl;
 	}
 	for(vector<Maitenance>::size_type i = 0; i < maitenance_v.size(); i++){
-		cout<<maitenance_v[i].get_id() <<";" << maitenance_v[i].get_mt() << maitenance_v[i].get_opt()<<std::endl; 
+		cout<<maitenance_v[i].get_id() <<";" << maitenance_v[i].get_mt() << maitenance_v[i].get_opt()<<std::endl;
 	}
 	//Scheduling
 	cout<<"Scheduling:\n";
