@@ -19,11 +19,11 @@ Generations::Generations(string filename){
 			m = ord.machine2.get_sop();
 			tmp = i;
 		}
+      zero.order = &ord;
+      zero.rank = 0;
+      this->population.push_back(zero);
+      this->previous_population.push_back(zero);
 	}
-    zero.order = &orders;
-    zero.rank = 0;
-    this->population.push_back(zero);
-    this->previous_population.push_back(zero);
     this->maintanance_v = I.maitenance_v;
 	
 }
