@@ -1,5 +1,5 @@
 #include "generations.h"
-
+//TODO: time-based killing
 Generations::Generations(string filename){
 	this->population_id = 0;
 	Instance I;
@@ -57,7 +57,10 @@ void Generations::selection(){
     remove_weak();
   }
   else{
-   // TODO: operate again on previous_population 
+   // TODO: operate again on previous_population
+   this->population = this->previous_population;
+   next_generation();
+
   }
 }
 
