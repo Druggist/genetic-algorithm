@@ -17,10 +17,6 @@ class Order{
 
 		int get_exectime();
 		vector<Task> get_tasks();
-		
-		//  Order();
-		//	Order(vector<Task_t>, vector<Task_t>, vector<Maitenance>);
-		//void initialization(vector<int>, vector<Task>, vector<Maitenance>);
 };
 
 #endif // ORDER_H

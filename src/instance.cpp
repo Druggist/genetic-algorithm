@@ -134,3 +134,11 @@ void Instance::clear_all(){
   clear_maitenance_v();
 }
 
+vector<Task> Instance::get_tasks(){
+  return this->task_v;
+}
+
+vector<Maitenance> Instance::get_maitenances(){
+  return this->maitenance_v;
+}
+

@@ -44,11 +44,10 @@ class Generations{
 		void mutate(int);
 		void sort_population();
 		bool time_exceeded();
-		void save_and_exit();
+        void save_and_exit(string filename);
 	public:
 		void next_generation();
 		Generations(string filename);
         void dump_generation(string filename);
-        void save_and_exit(string filename);
 };
 #endif // GENERATIONS_H

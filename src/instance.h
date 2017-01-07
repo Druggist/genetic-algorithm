@@ -16,15 +16,17 @@ using std::endl;
 using std::fstream;
 using std::string;
 using std::ofstream;
+
 class Instance{
+private:
 	int id, tasks_number;
-public:
 	vector<Task> task_v;
 	vector<Maitenance> maitenance_v;
-private:
 	void clear_task_v();
 	void clear_maitenance_v();
 public:
+	vector<Task> get_tasks();
+	vector<Maitenance> get_maitenances();
 	void generate_instance(int, int, int, bool);
 	void dump_instance(string);
 	void read_instance(string);
