@@ -28,8 +28,11 @@
 *.out
 *.app
 
+*txt
+
 #Dirs
 data/
 bin/
 
 ga.cbp
+
