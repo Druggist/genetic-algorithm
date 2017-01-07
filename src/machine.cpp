@@ -3,6 +3,7 @@
 Machine::Machine(int id, int start_t = 0){
 	this->id = id;
 	this->start_t = start_t;
+	this->stop_t = start_t;
 }
 
 int Machine::get_id(){
@@ -41,7 +42,7 @@ bool Machine::add(int task_id, vector<Task> task_v, vector<Maitenance> maitenanc
 		for (vector<Maitenance>::size_type i = 0; i < maitenance_v.size() ; i++ ){
 			if (stopt == maitenance_v[i].get_mt()){
 				stopt += maitenance_v[i].get_opt();
-				new_task.set_op_stime(stopt);     
+				new_task.set_op_stime(stopt);
 			}
 		}
 
@@ -75,7 +76,7 @@ bool Machine::add(Task_t new_task, vector<Maitenance> maitenance_v){
 		for (vector<Maitenance>::size_type i = 0; i < maitenance_v.size() ; i++ ){
 			if (stopt == maitenance_v[i].get_mt()){
 				stopt += maitenance_v[i].get_opt();
-				new_task.set_op_stime(stopt);     
+				new_task.set_op_stime(stopt);
 			}
 		}
 
@@ -99,7 +100,7 @@ bool Machine::add(Task_t new_task, vector<Maitenance> maitenance_v){
 		new_task.set_op_stime(stopt);
 		mtasks_v.push_back(new_task);
 		stopt += new_task.get_op_time(2);
-	}	
+	}
 	return true;
 }
 
