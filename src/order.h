@@ -13,8 +13,8 @@ class Order{
 		Machine machine1, machine2;
 		int exec_t;
 	public:
-		Order(vector<Task> tasks);
-		
+		Order(vector<Task>, vector<Maitenance>);
+
 		int get_exectime();
 		vector<Task> get_tasks();
 		

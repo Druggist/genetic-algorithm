@@ -1,7 +1,7 @@
 #include "order.h"
 
-Order::Order(vector<Task> tasks){
-	
+Order::Order(vector<Task> tasks, vector<Maitenance> maitenance_v){
+
 }
 
 int Order::get_exectime(){
