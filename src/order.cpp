@@ -18,7 +18,10 @@ Order::Order(vector<Task> tasks, vector<Maitenance> maitenance_v){
     machine2(2, tasks[i].get_ready_t());
     for (unsigned int i = 0; i < tasks.size(); i++){
         if (machine1.get_stop_t() <= task[i].get_ready_t()){ // when  fits perfectly
-            machine1.add(task[i], maitenance_v);
+            while (machine1.add(task[i], maitenance_v) == false){
+                tasks.push_back(tasks[i]);
+                tasks.remove(tasks.begin()+i);
+            }
             machine2.set_start_t(machine1.get_stop_t());
             machine2.set_stop_t(machine1.get_stop_t());
             machine2.add(task[i], maitenance_v);
@@ -31,14 +34,19 @@ Order::Order(vector<Task> tasks, vector<Maitenance> maitenance_v){
                 }
             }
             if (machine1.get_stop_t() <= task[i].get_ready_t()){
-                machine1.add(task[i], maitenance_v);
+            while (machine1.add(task[i], maitenance_v) == false){
+                tasks.push_back(tasks[i]);
+                tasks.remove(tasks.begin()+i);
+            }
                 machine2.set_start_t(machine1.get_stop_t());
                 machine2.set_stop_t(machine1.get_stop_t());
                 machine2.add(task[i], maitenance_v);
             }
             else{ //move rt
-                machine1.set_stop_t(task[i].get_ready_t());
-                machine1.add(task[i], maitenance_v);
+            while (machine1.add(task[i], maitenance_v) == false){
+                tasks.push_back(tasks[i]);
+                tasks.remove(tasks.begin()+i);
+                }
                 machine2.set_start_t(machine1.get_stop_t());
                 machine2.set_stop_t(machine1.get_stop_t());
                 machine2.add(task[i], maitenance_v);
