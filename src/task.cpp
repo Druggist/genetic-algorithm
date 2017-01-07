@@ -35,16 +35,13 @@ void Task::set_op_t(int o, int t){
 	else if (o == 2) op2_t = t;
 }
 
-void Task::set_reneval_t(int t){
+void Task::punish(int t){
 	this->renewal_t = t;
-}
-
-void Task::punish(){
 	this->punished = true;
 }
 
 void Task::reset_punishment(){
-	this->renewal_t = this->punished_op_t = 0;
+	this->renewal_t = 0;
 	punished = false;
 }
 

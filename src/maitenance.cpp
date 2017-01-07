@@ -16,6 +16,10 @@ int Maitenance::get_duration(){
 	return duration;
 }
 
+int Maitenance::get_stop_t(){
+	return start_t + duration;
+}
+
 void Maitenance::set_start_t(int t){
 	this->start_t = t;
 }

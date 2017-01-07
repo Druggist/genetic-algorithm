@@ -12,6 +12,7 @@ class Maitenance{
 		int get_id();
 		int get_start_t();
 		int get_duration();
+		int get_stop_t();
 		
 		void set_start_t(int);
 		void set_duration(int);

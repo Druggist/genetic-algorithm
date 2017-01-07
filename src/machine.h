@@ -24,7 +24,7 @@ class Machine{
 		void set_start_t(int);
 		void set_stop_t(int);
 
-		void add(Task, vector<Maitenance>);
+		bool add(Task, vector<Maitenance>);
 
 		/*
 		bool add(int, vector<Task>, vector<Maitenance>);
