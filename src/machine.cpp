@@ -1,6 +1,6 @@
 #include "machine.h"
 
-Machine::Machine(short id, int start_t = 0){
+void Machine::init(short id, int start_t = 0){
 	this->id = id;
 	this->start_t = start_t;
 	this->stop_t = start_t;
@@ -46,7 +46,7 @@ bool Machine::add(Task task, vector<Maitenance> maitenance_v){
 				if(overlay > 1) return false;
 			}
 		}
-		
+
 		if(overlay == 0) this->stop_t += task.get_op_t(1);
 		else{
 			this->stop_t += maitenance_v[maitenance_id].get_duration() + task.get_punished_op_t();
