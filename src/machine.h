@@ -9,7 +9,7 @@ using std::vector;
 
 class Machine{
 	private:
-		int id;
+		short id;
 		int start_t;
 		int stop_t;
 		vector<Task> tasks;
