@@ -14,7 +14,7 @@ class Machine{
 		int stop_t;
 		vector<Task> tasks;
 	public:
-		Machine(int, int);
+		Machine(short, int);
 		
 		int get_id();
 		int get_start_t();
