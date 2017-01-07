@@ -1,75 +1,58 @@
 #include "task.h"
 
+Task::Task(int id){
+	this->id  = id;
+	reset_punishment();
+}
+
 int Task::get_id() const{
 	return id;
 }
 
-int Task::get_rt(){
-	return rt;
+int Task::get_ready_t(){
+	return ready_t;
 }
 
-int Task::get_op_time(int i){
-	if (i == 1)	return op1_time;
-	if (i == 2)	return op2_time;
-	return -1;
+int Task::get_op_t(int i){
+	if (i == 1)	return op1_t;
+	return op2_t;
 }
 
-void Task::set_rt(int i){
-	rt = i;
+int Task::get_punished_op_t(){
+	return ceil(1.2 * op1_t);
 }
 
-void Task::set_op_time(int o, int t){
-	if (o == 1) op1_time = t;
-	else if (o == 2) op2_time = t;
-	else exit(1);
+int Task::get_renewal_t(){
+	return renewal_t;
 }
-/*
-Task_t::Task_t(int i){
+
+void Task::set_ready_t(int t){
+	this->ready_t = t;
+}
+
+void Task::set_op_t(int o, int t){
+	if (o == 1) op1_t = t;
+	else if (o == 2) op2_t = t;
+}
+
+void Task::set_reneval_t(int t){
+	this->renewal_t = t;
+}
+
+void Task::punish(){
+	this->punished = true;
+}
+
+void Task::reset_punishment(){
+	this->renewal_t = this->punished_op_t = 0;
 	punished = false;
-	punishment = 0;
-	id = i;
-}*/
-
-Task_t::Task_t(Task task){
-	punished = false;
-	punishment = 0;
-	id = task.get_id();
-	rt = task.get_rt();
-	op1_time = get_op_time(1);
-	op2_time = get_op_time(2);
 }
 
-bool Task_t::if_punished(){
+bool Task::if_punished(){
 	return punished;
 }
 
-int Task_t::get_punish(){
-	return punishment;
-}
-
-int Task_t::punish_time(){
-	return punishment;
-}
-
-void Task_t::punishit(int p){
-	punished = true;
-	punishment = p;
-}
-
-void Task_t::punish(){
-	punishment++;
-}
-
-int Task_t::startt(){
-	return op_stime;
-}
-
-void Task_t::set_op_stime(int k){
-	op_stime = k;
-}
-
-bool Task_t::operator==(const Task_t& rhs){
-	if(
-		this->get_id() == rhs.get_id()) return true;
+bool Task::operator==(const Task& r){
+	if(this->get_id() == r.get_id()) return true;
 	return false;
 }

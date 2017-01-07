@@ -1,5 +1,22 @@
 #include "order.h"
 
+Order::Order(vector<Task> tasks){
+	
+}
+
+int Order::get_exectime(){
+	return exec_t;
+}
+
+vector<Task_t> Order::get_tasks(){
+	return machine1.get_tasks();
+}
+
+
+
+
+
+/*
 Order::Order(){
 
 }
@@ -63,15 +80,4 @@ void Order::initialization(vector<int> O, vector<Task> task_v, vector<Maitenance
 
 	this->exec_t = machine2.get_sop();
 }
-
-vector<Task_t> Order::get_tasks(int machine_id){
-	if (machine_id == 1){
-		return machine1.mtasks_v;
-	} else {
-		return machine2.mtasks_v;
-	}
-}
-
-int Order::get_exectime(){
-  return exec_t;
-}
+*/

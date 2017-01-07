@@ -1,26 +1,25 @@
 #include "maitenance.h"
 
-
-int Maitenance::get_mt(){
-	return m_time;
+Maitenance::Maitenance(int id){
+	this->id = id;
 }
 
 int Maitenance::get_id(){
 	return id;
 }
 
-int Maitenance::get_opt(){
-	return op_time;
+int Maitenance::get_start_t(){
+	return start_t;
 }
 
-void Maitenance::set_id(int i){
-  id = i;
+int Maitenance::get_duration(){
+	return duration;
 }
 
-void Maitenance::set_mt(int m){
-  m_time = m;
+void Maitenance::set_start_t(int t){
+	this->start_t = t;
 }
 
-void Maitenance::set_opt(int o){
-  op_time = o;
+void Maitenance::set_duration(int d){
+	this->duration = d;
 }

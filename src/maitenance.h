@@ -4,15 +4,17 @@
 class Maitenance{
 	private:
 		int id;
-		int m_time; //start time
-		int op_time; //duration
+		int start_t;
+		int duration; 
 	public:
-		int get_mt();
-		int get_opt();
+		Maitenance(int);
+
 		int get_id();
-        void set_id(int);
-        void set_mt(int);
-        void set_opt(int);
+		int get_start_t();
+		int get_duration();
+		
+		void set_start_t(int);
+		void set_duration(int);
 };
 
 #endif // MAITENANCE_H

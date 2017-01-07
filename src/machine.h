@@ -10,20 +10,27 @@ using std::vector;
 class Machine{
 	private:
 		int id;
-		int startt;
-		int stopt;
+		int start_t;
+		int stop_t;
+		vector<Task> tasks;
 	public:
-		vector <Task_t> mtasks_v;
-		void set_id(int);
-		void set_start(int);
-		void set_stop(int);
+		Machine(int, int);
+		
+		int get_id();
+		int get_start_t();
+		int get_stop_t();
+		vector<Task> get_tasks();
+
+		void set_start_t(int);
+		void set_stop_t(int);
+
+		void add(Task, vector<Maitenance>);
+
+		/*
 		bool add(int, vector<Task>, vector<Maitenance>);
 		bool add(Task_t, vector<Maitenance>);
 		void addt(int, int, vector<Task>);
-		void addt(int, Task_t);
-		int get_id();
-		int get_srt();
-		int get_sop();
+		void addt(int, Task_t);*/
 };
 
 #endif // MACHINE_H

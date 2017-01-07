@@ -1,29 +1,40 @@
 #include "machine.h"
 
-void Machine::set_id(int i){
-	id = i;
-}
-
-void Machine::set_start(int i){
-	startt = i;
-}
-
-void Machine::set_stop(int i){
-	stopt = i;
+Machine::Machine(int id, int start_t = 0){
+	this->id = id;
+	this->start_t = start_t;
 }
 
 int Machine::get_id(){
 	return id;
 }
 
-int Machine::get_srt(){
-	return startt;
+int Machine::get_start_t(){
+	return start_t;
 }
 
-int Machine::get_sop(){
-	return stopt;
+int Machine::get_stop_t(){
+	return stop_t;
 }
 
+vector<Task> Machine::get_tasks(){
+	return tasks;
+}
+
+void Machine::set_start_t(int t){
+	start_t = t;
+}
+
+void Machine::set_stop_t(int t){
+	stop_t = t;
+}
+
+void Machine::add(Task task, vector<Maitenance> maitenance_v){
+
+}
+
+
+/*
 bool Machine::add(int task_id, vector<Task> task_v, vector<Maitenance> maitenance_v){
 	if (id == 1){ //machine 1
 		Task_t new_task(task_v[task_id]);
@@ -108,3 +119,4 @@ void Machine::addt(int t, Task_t new_task){
 		stopt += t + new_task.get_op_time(2);
 	}
 }
+*/

@@ -2,35 +2,31 @@
 #define TASK_H
 
 #include <cstdlib>
+#include <math.h>
 
-struct Task{
-	int id;
-	int op1_time;
-	int op2_time;
-	int rt;
-	int get_id() const;
-	int get_rt();
-	int get_op_time(int);
-	void set_op_time(int, int);
-	void set_rt(int);
-};
-
-class Task_t : public Task{
+class Task{
 	private:
+		int id;
+		int op1_t, op2_t, ready_t;
+		int renewal_t;
 		bool punished;
-		int punishment; //summary punishment time
-		int op_stime; //start time
 	public:
-	//	Task_t(int);
-		Task_t(Task);
-		bool if_punished();
-		int punish_time();
-		void punishit(int);
+		Task(int);
+		
+		int get_id() const;
+		int get_ready_t();
+		int get_op_t(int);
+		int get_punished_op_t();
+		int	get_renewal_t();
+
+		void set_ready_t(int);
+		void set_op_t(int, int);
+		void set_renewal_t(int);
 		void punish();
-		int startt();
-		int get_punish();
-		void set_op_stime(int);
-		bool operator== (const Task_t&);
+		void reset_punishment();
+
+		bool is_punished();
+		bool operator== (const Task&);
 };
 
 #endif // TASK_H

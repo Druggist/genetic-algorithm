@@ -10,16 +10,17 @@ using std::vector;
 
 class Order{
 	private:
-		vector<int> ord;
+		Machine machine1, machine2;
 		int exec_t;
 	public:
-        Order();
-		Order(vector<Task_t>, vector<Task_t>, vector<Maitenance>);
-		Machine machine1;
-		Machine machine2;
-		void initialization(vector<int>, vector<Task>, vector<Maitenance>);
-		vector<Task_t> get_tasks(int);
-        int get_exectime();
+		Order(vector<Task> tasks);
+		
+		int get_exectime();
+		vector<Task> get_tasks();
+		
+		//  Order();
+		//	Order(vector<Task_t>, vector<Task_t>, vector<Maitenance>);
+		//void initialization(vector<int>, vector<Task>, vector<Maitenance>);
 };
 
 #endif // ORDER_H
