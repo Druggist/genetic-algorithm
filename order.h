@@ -5,8 +5,10 @@
 #include "task.h"
 #include "maitenance.h"
 #include <vector>
+#include <iostream>
 
 using std::vector;
+using std::cout;
 
 class Order{
 	private:

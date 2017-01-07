@@ -9,7 +9,6 @@ Generations::Generations(string filename){
 	vector <int> s;
 	vector <Order> orders;
 	int m = 2000;
-	int tmp = 0;
     Chromosome zero;
 	I.read_instance(filename);
 	for(vector<Task_t>::size_type i = 0; i> I.task_v.size(); i++) s.push_back(i);
@@ -18,10 +17,7 @@ Generations::Generations(string filename){
 		random_shuffle(s.begin(), s.end());
 		ord.initialization(s, I.task_v, I.maitenance_v);
 		orders.push_back(ord);
-		if(ord.machine2.get_sop() < m){
-			m = ord.machine2.get_sop();
-			tmp = i;
-		}
+		if(ord.machine2.get_sop() < m) m = ord.machine2.get_sop();
       zero.order = &ord;
       zero.rank = 0;
       this->population.push_back(zero);
@@ -124,17 +120,16 @@ bool Generations::crossing_over(int chromosome_id){
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_resection(_MIN_RESECTION_PCT, _MAX_RESECTION_PCT);
 	uniform_int_distribution<int> random_chromosome(0, floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1);
-  	cout<<"here!\n";
-
 	int chromosome1_num = random_chromosome(gen);
 	int chromosome2_num = random_chromosome(gen);
-		cout<<"here!\n";
 
 	while(chromosome1_num == chromosome2_num) chromosome2_num = random_chromosome(gen);
-		cout<<"here!\n";
-  cout<<chromosome1_num;
-	vector<Task_t> tmp = previous_population[chromosome1_num].order->get_tasks(1);
-		cout<<"here!\n";
+	cout<<"Chrom1: ";
+  	cout<<chromosome1_num << "\n";
+	cout<<"Chrom2: ";
+  	cout<<chromosome2_num << "\n";
+	vector<Task_t> tmp(previous_population[chromosome1_num].order->get_tasks(1));
+	cout<< previous_population.size()<<"here!\n";
 
 	int resection_m1 = floor(tmp.size() * random_resection(gen)/100.0);
 	if (resection_m1 <= 0) return false;
@@ -142,7 +137,6 @@ bool Generations::crossing_over(int chromosome_id){
 	vector<Task_t> tasks_m1(&tmp[0], &tmp[resection_m1 - 1]);
 	vector<Task_t> tasks_m1_2(&tmp[resection_m1], &tmp[tmp.size() - 1]);
 	tasks_m1.insert(tasks_m1.end(), tasks_m1_2.begin(), tasks_m1_2.end());
-	cout<<"here!\n";
 
 
 	tmp = previous_population[chromosome1_num].order->get_tasks(2);
@@ -209,7 +203,9 @@ void Generations::next_generation(){
     std::cout<<"200\n";
 		crossing_over(i);
   std::cout<<"202\n";
-		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate(i);
+		char x;
+		std::cin>>x;
+		//if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate(i);
 	}
 	std::cout<<"205\n";
 	this->population_id++;
@@ -224,14 +220,13 @@ void Generations::dump_generation(string filename){
   dump << "***" /*<< id*/ << "****" << endl;
   dump << population[0].order->get_exectime() /*<< gen_exec_time*/ << endl;
   dump << "M1:";
-  vector <Task_t> t;
-  t = population[0].order->get_tasks(1);
-  for(int i = 0; i < t.size(); i++){
+  vector <Task_t> t(population[0].order->get_tasks(1));
+  for(unsigned int i = 0; i < t.size(); i++){
   	dump << t[i].id << ',';
   }
   dump << endl;
   t = population[0].order->get_tasks(2);
-  for(int i = 0; i < t.size(); i++){
+  for(unsigned int i = 0; i < t.size(); i++){
   	dump << t[i].id << ',';
   }
   dump << endl;

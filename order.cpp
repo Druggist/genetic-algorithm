@@ -66,8 +66,10 @@ void Order::initialization(vector<int> O, vector<Task> task_v, vector<Maitenance
 
 vector<Task_t> Order::get_tasks(int machine_id){
 	if (machine_id == 1){
+		cout << "Tasks: "<<machine1.get_sop() <<" : "<< machine1.mtasks_v.size() << "\n";
 		return machine1.mtasks_v;
 	} else {
+		cout << "Tasks: "<< machine2.mtasks_v.size() << "\n";
 		return machine2.mtasks_v;
 	}
 }
