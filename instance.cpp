@@ -95,9 +95,9 @@ void Instance::read_instance(string filename){
         tmp = atoi(s.c_str());
         t.set_rt(tmp);
         task_v.push_back(t);
-        //std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
+        std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
       }
-    
+    std::cout <<"\n\n\nTeraz ida maitanance!\n\n ====================================== \n"<<endl;
     for(int i = 0; i < quantity/5; i++){
       getline(file, s, ';');
       tmp = atoi(s.c_str());
@@ -110,8 +110,9 @@ void Instance::read_instance(string filename){
       tmp = atoi(s.c_str());
       m.set_mt(tmp);
       maitenance_v.push_back(m);
-      //std::cout <<  m.get_id() << ";" << m.get_opt() << ";" << m.get_mt() << ";" << endl;
+      std::cout <<  m.get_id() << ";" << m.get_opt() << ";" << m.get_mt() << ";" << endl;
     }
+    std::cout<<"\n\n ====================================== \n\nKONIEC\n\n"<<endl;
 
   }
   else{
@@ -134,3 +135,8 @@ void Instance::clear_all(){
   clear_maitenance_v();
 }
 
+void Instance::print_taks_v(){
+  for(unsigned int i = 0; i < task_v.size(); i++){
+    std::cout<<task_v[i].get_rt()<<endl;
+  }
+}

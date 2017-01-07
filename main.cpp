@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
 		cout<<"Usage: "<<argv[0]<<" <inputfile> <outputfile>"<<endl;
 		return 1;
 	}
-	Generations gen("file_.txt");
+	Generations gen("file.txt");
 	cout<<"done"<<endl;
 	gen.next_generation();
 	cout<<"dupa"<<endl;

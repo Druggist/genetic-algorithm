@@ -39,8 +39,9 @@ void Order::initialization(vector<int> O, vector<Task> task_v, vector<Maitenance
 	machine1.set_start(0);
 	machine1.set_stop(0);
 	machine2.set_id(2);
+	cout<<"machines initialization\n";
 	int n, tmp;
-	for (vector<int>::size_type i = 0; i < O.size(); i++){
+	for (unsigned int i = 0; i < O.size(); i++){
 		//Machine 1
 		n = 1;
 		while(!machine1.add(O[i], task_v, maitenance_v)){

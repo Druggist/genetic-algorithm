@@ -78,3 +78,74 @@
 1483738692 source:e:\git\ok\task.cpp
 	"task.h"
 
+1483789563 source:e:\git\genetic-algorithm\generations.cpp
+	"generations.h"
+
+1483782724 e:\git\genetic-algorithm\generations.h
+	"order.h"
+	"config.h"
+	"instance.h"
+	<vector>
+	<algorithm>
+	<math.h>
+	<random>
+	<string>
+	<cstdlib>
+
+1483782724 e:\git\genetic-algorithm\order.h
+	"machine.h"
+	"task.h"
+	"maitenance.h"
+	<vector>
+	<iostream>
+
+1483782724 e:\git\genetic-algorithm\machine.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+
+1483782724 e:\git\genetic-algorithm\task.h
+	<cstdlib>
+
+1483782724 e:\git\genetic-algorithm\maitenance.h
+
+1483782724 e:\git\genetic-algorithm\config.h
+
+1483782724 e:\git\genetic-algorithm\instance.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+	<fstream>
+	<string>
+	<iostream>
+	<ctime>
+	<cstdlib>
+
+1483782724 source:e:\git\genetic-algorithm\instance.cpp
+	"instance.h"
+
+1483782724 source:e:\git\genetic-algorithm\machine.cpp
+	"machine.h"
+
+1483782724 source:e:\git\genetic-algorithm\main.cpp
+	"machine.h"
+	"maitenance.h"
+	"order.h"
+	"task.h"
+	"generations.h"
+	<iostream>
+	<vector>
+	<algorithm>
+	<string>
+	<cstdlib>
+	<fstream>
+
+1483782724 source:e:\git\genetic-algorithm\maitenance.cpp
+	"maitenance.h"
+
+1483782724 source:e:\git\genetic-algorithm\order.cpp
+	"order.h"
+
+1483782724 source:e:\git\genetic-algorithm\task.cpp
+	"task.h"
+

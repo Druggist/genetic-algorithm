@@ -31,6 +31,7 @@ public:
 	//void set_id(int);
 	//void set_task_number(int);
 	void clear_all();
+	void print_taks_v();
 };
 
 #endif // INSTANCE_H

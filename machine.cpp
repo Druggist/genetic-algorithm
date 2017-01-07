@@ -1,5 +1,5 @@
 #include "machine.h"
-
+#include <iostream>
 void Machine::set_id(int i){
 	id = i;
 }
@@ -25,12 +25,14 @@ int Machine::get_sop(){
 }
 
 bool Machine::add(int task_id, vector<Task> task_v, vector<Maitenance> maitenance_v){
+	 std::cout<<"machine::add/n";
 	if (id == 1){ //machine 1
+        std::cout<<"machine1::add::/n";
 		Task_t new_task(task_v[task_id]);
 		for (vector<Maitenance>::size_type i = 0; i < maitenance_v.size() ; i++ ){
 			if (stopt == maitenance_v[i].get_mt()){
 				stopt += maitenance_v[i].get_opt();
-				new_task.set_op_stime(stopt);     
+				new_task.set_op_stime(stopt);
 			}
 		}
 
@@ -64,7 +66,7 @@ bool Machine::add(Task_t new_task, vector<Maitenance> maitenance_v){
 		for (vector<Maitenance>::size_type i = 0; i < maitenance_v.size() ; i++ ){
 			if (stopt == maitenance_v[i].get_mt()){
 				stopt += maitenance_v[i].get_opt();
-				new_task.set_op_stime(stopt);     
+				new_task.set_op_stime(stopt);
 			}
 		}
 
@@ -88,7 +90,7 @@ bool Machine::add(Task_t new_task, vector<Maitenance> maitenance_v){
 		new_task.set_op_stime(stopt);
 		mtasks_v.push_back(new_task);
 		stopt += new_task.get_op_time(2);
-	}	
+	}
 	return true;
 }
 

@@ -10,18 +10,22 @@ Generations::Generations(string filename){
 	vector <Order> orders;
 	int m = 2000;
     Chromosome zero;
+    vector <Task_t> t;
 	I.read_instance(filename);
+	I.print_taks_v();
 	for(vector<Task_t>::size_type i = 0; i> I.task_v.size(); i++) s.push_back(i);
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
-	    Order ord; //todo constructor
+	    Order ord;
 		random_shuffle(s.begin(), s.end());
 		ord.initialization(s, I.task_v, I.maitenance_v);
-		orders.push_back(ord);
-		if(ord.machine2.get_sop() < m) m = ord.machine2.get_sop();
+		t = ord.get_tasks(1);
       zero.order = &ord;
       zero.rank = 0;
       this->population.push_back(zero);
       this->previous_population.push_back(zero);
+	}
+	for(unsigned int i = 0; i < population.size(); i++){
+        cout<<i<<" "<<population[0].order->get_exectime()<<endl;
 	}
     this->maintanance_v = I.maitenance_v;
 
@@ -67,7 +71,7 @@ void Generations::rebuild(vector<Task_t>& tasks_m1, vector<Task_t>& tasks_m2, in
 	for (int x = 1; x < 3; x++){
 		vector<int> missing_tasks;
 		vector<int> duplicates;
-		vector<Task_t> all_tasks = previous_population[0].order->get_tasks(x); //wtf
+		vector<Task_t> all_tasks = previous_population[0].order->get_tasks(x);
 		int resection = (x == 1)?(resection_m1):(resection_m2);
 		vector<Task_t> tasks = (x == 1)?(tasks_m1):(tasks_m2);
 
