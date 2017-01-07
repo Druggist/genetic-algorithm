@@ -97,7 +97,7 @@ void Instance::read_instance(string filename){
         task_v.push_back(t);
         //std::cout << t.get_op_time(1) << ";" << t.get_op_time(2) << ";" << "1" <<";" << "2" << ";" << t.get_rt() << ";" << endl;
       }
-    
+
     for(int i = 0; i < quantity/5; i++){
       getline(file, s, ';');
       tmp = atoi(s.c_str());
