@@ -59,7 +59,7 @@ int Order::get_exectime(){
 	return exec_t;
 }
 
-vector<Task> Order::get_tasks(){
+vector<Task_t> Order::get_tasks(){
 	return machine1.get_tasks();
 }
 
