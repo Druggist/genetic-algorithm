@@ -6,12 +6,12 @@
 
 class Task{
 	private:
-		short id;
+		int id;
 		int op1_t, op2_t, ready_t;
 		int renewal_t;
 		bool punished;
 	public:
-		Task(short);
+		Task(int);
 
 		int get_id() const;
 		int get_ready_t();

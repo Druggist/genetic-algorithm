@@ -45,7 +45,7 @@ void Task::reset_punishment(){
 	punished = false;
 }
 
-bool Task::if_punished(){
+bool Task::is_punished(){
 	return punished;
 }
 

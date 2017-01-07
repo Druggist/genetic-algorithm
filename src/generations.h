@@ -36,8 +36,7 @@ class Generations{
 		vector<Chromosome> population;
 		vector<Maitenance> maintanance_v;
 		clock_t begin_exec;
-		void fix(vector<Task_t>&, vector<Task_t>&);
-		void rebuild(vector<Task_t>&, vector<Task_t>&, int, int);
+		void rebuild(vector<Task>&, int);
 		bool crossing_over(int);
 		void remove_weak();
 		void selection();
