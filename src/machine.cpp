@@ -23,12 +23,12 @@ vector<Task> Machine::get_tasks(){
 }
 
 void Machine::set_start_t(int t){
-	start_t = t;
-	stop_t = t;
+	this->start_t = t;
+	this->stop_t = t;
 }
 
 void Machine::set_stop_t(int t){
-	stop_t = t;
+	this->stop_t = t;
 }
 
 int Machine::add(Task task, vector<Maitenance> maitenance_v){
@@ -37,7 +37,7 @@ int Machine::add(Task task, vector<Maitenance> maitenance_v){
 		int maitenance_id = 0;
 
 		for (unsigned int i = 0; i < maitenance_v.size(); i++){
-			if(maitenance_v[i].get_start_t() <= stop_t || maitenance_v[i].get_stop_t() > stop_t) this->stop_t = maitenance_v[i].get_stop_t();
+			if(maitenance_v[i].get_start_t() <= stop_t && maitenance_v[i].get_stop_t() > stop_t) this->stop_t = maitenance_v[i].get_stop_t();
 			if(maitenance_v[i].get_start_t() > stop_t){
 				int task_t = (overlay == 0)?(task.get_op_t(1)):(task.get_punished_op_t());
 				if(maitenance_v[i].get_start_t() <= task_t){
@@ -48,7 +48,7 @@ int Machine::add(Task task, vector<Maitenance> maitenance_v){
 			}
 		}
 
-		task.set_start_t(1, stop_t);
+		task.set_start_t(1, this->stop_t);
 		if(overlay == 0) this->stop_t += task.get_op_t(1);
 		else{
 			this->stop_t += maitenance_v[maitenance_id].get_duration() + task.get_punished_op_t();
@@ -56,7 +56,7 @@ int Machine::add(Task task, vector<Maitenance> maitenance_v){
 		}
 		tasks.push_back(task);
 	}else if( id == 2){
-		task.set_start_t(2, stop_t);
+		task.set_start_t(2, this->stop_t);
 		tasks.push_back(task);
 		this->stop_t += task.get_op_t(2);
 	}

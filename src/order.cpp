@@ -17,7 +17,7 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 	}
 
 	machine1.init(1, tasks[0].get_ready_t());
-	machine2.init(2, tasks[0].get_ready_t()+tasks[0].get_op_t(1));
+	machine2.init(2, tasks[0].get_ready_t());
 
 	for (unsigned int i = 0; i < tasks.size(); i++){
 		iter = i;
@@ -34,11 +34,9 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 				}
 				ma=machine1.add(tasks[i], maitenance_v);
 			}
-			if( machine2.get_stop_t() >= machine1.get_stop_t()) machine2.add(tasks[i], maitenance_v);
-			else{
-				machine2.set_stop_t(machine1.get_stop_t());
-				machine2.add(tasks[i], maitenance_v);
-			}
+			if(i == 0) machine2.set_start_t(machine1.get_stop_t());
+			if( machine2.get_stop_t() < machine1.get_stop_t()) machine2.set_stop_t(machine1.get_stop_t());
+			machine2.add(tasks[i], maitenance_v);
 		}else{ // if machine1.get_stop_t() > tasks[i].get_ready_t()
 			for (unsigned int j = i; j < tasks.size(); j++){
 				if(machine1.get_stop_t() >= tasks[j].get_ready_t()){
@@ -56,7 +54,7 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 }
 
 int Order::get_exectime(){
-	return exec_t;
+	return machine2.get_stop_t();
 }
 
 vector<Task> Order::get_tasks(){
