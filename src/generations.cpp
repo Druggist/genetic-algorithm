@@ -25,7 +25,7 @@ Generations::Generations(string filename){
 
 int Generations::average(){
 	int av = 0;
-	for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
+	for (unsigned i = 0; i < population.size(); i++ ){
 		av += previous_population[i].order.get_exectime();
 	}
 	return av / _POPULATION_SIZE;
@@ -42,13 +42,6 @@ void Generations::selection(){
 		r = ((population[i].order.get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order.get_exectime() * _EXEC_TIME_WEIGHT;
 		if (population[i].order.get_exectime() >= 0.80 * av) counter++;
 		population[i].rank = r;
-	}
-	if (counter >= 0.30 * av) remove_weak();
-	else{
-		// TODO: operate again on previous_population
-		this->population = this->previous_population;
-
-		next_generation();
 	}
 }
 
