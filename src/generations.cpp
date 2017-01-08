@@ -170,7 +170,7 @@ void Generations::next_generation(){
 
 void Generations::dump_generation(string filename){
 	ofstream dump;
-	int st = 0, tf = 0, m_iter = 0; //start time, to finish, maitanance iterator
+	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0; //start time, to finish, maitanance iterator
 	char d = ','; // delimiter
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
@@ -179,44 +179,77 @@ void Generations::dump_generation(string filename){
 	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
-	for(unsigned int i = 0; i < t.size(); i++){
+	for (unsigned int i = 0; i < maintanance_v.size(); i++){
+        m_sum += maintanance_v[i].get_duration();
+    }
+    st = 0;
+    for (unsigned int i = 0; i < t.size(); i++){
         if (!t[i].is_punished()){
-            dump << "op1_" << t[i].get_id() << ',' << t[i]. << ',' << t[i].get_op_t(1) << ',';
-            st += t[i].get_op_t(1);
+            if (maintanance_v[m_iter].get_start_t() > t[i].get_start_t(1)){
+                if (st < t[i].get_start_t(1)){
+                        dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                        idle_1_t += t[i].get_start_t(1) - st;
+                        idle++;
+                }
 
-        }else{
-            dump << "op1_" << t[i].get_id() << ',' << st << ',' <<  t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t() << ',';
-            tf = t[i].get_punished_op_t() - (t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t());
-            dump << "maint" << maintanance_v[m_iter].get_id() << ',' << maintanance_v[m_iter].get_start_t() << ',' << maintanance_v[m_iter].get_duration() << ',';
-            st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
-            dump << "op1_" << t[i].get_id() << ',' << st << ',' << tf << ',';
-            st += tf;
-            m_iter ++;
+                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
+                st = t[i].get_start_t(1) + t[i].get_op_t(1);
+            }else{
+                if (st < maintanance_v[m_iter].get_start_t() ){
+                    dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                    idle_1_t += maintanance_v[m_iter].get_start_t() - st;
+                    idle++;
+                }
+                dump << "maint1_" << m_iter <<d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
+                m_iter++;
+                st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
+                if (st < t[i].get_start_t(1)){
+                        dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                        idle_1_t += t[i].get_start_t(1) - st;
+                        idle ++;
+                }
+                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1)<<d;
+                st = t[i].get_start_t(1) + t[i].get_op_t(1);
+                }
+            }else{ // punished
+                if (st < t[i].get_start_t(1)){
+                    dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                    idle_1_t += t[i].get_start_t(1) - st;
+                    idle++;
+                }
+                    tf = t[i].get_op_t(1) - (t[i].get_op_t(1) - maintanance_v[m_iter].get_duration());
+                    dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) - maintanance_v[m_iter].get_duration() << d;
+                    dump << "maint1_" << m_iter << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration();
+                    m_iter++;
+                    dump << "op1_" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
+                    st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() + tf;
+            }
+
         }
-	}
-    if (m_iter < maintanance_v.size()){
-        for (unsigned int i = m_iter; i< maintanance_v.size(); i++ ){
-            dump << "maint" << maintanance_v[i].get_id() << ',' << maintanance_v[i].get_start_t() << ',' << maintanance_v[i].get_duration() << ',';
+        st = 0;
+        idle = 0;
+        dump << endl;
+        dump << "M2:";
+        for( unsigned int i = 0; i< t.size(); i++){
+            if(st < t[i].get_start_t(2)){
+                dump << "idle2_" << idle << d << st << d << t[i].get_start_t(2) - st << d;
+                idle++;
+                idle_2_t += t[i].get_start_t(2) - st;
+            }
+            dump << "op2_" << t[i].get_id() << d << t[i].get_start_t(2) << d << t[i].get_op_t(2) << d;
+            st = t[i].get_start_t(2) + t[i].get_op_t(2);
         }
-    }
-	dump << endl << "M2:";
-	st = population[0].order.get_machine_start_t(2);
-    for(unsigned int i = 0; i < t.size(); i++){
-        dump << "op2_" << t[i].get_id() << ',' << st << ',' << t[i].get_op_t(2) << ',';
-        st += t[i].get_op_t(2);
-    }
-    tf = 0; // use fs to sum maitenance time
-    for (unsigned int i = 0; i < maintanance_v.size(); i++){
-        tf += maintanance_v[i].get_duration();
-    }
+
     dump << endl;
-    dump << tf;
-    dump << 0;
-    //dump << idles_sum1;
-    //dump << idles_sum2;
+    dump << m_sum <<'\n';
+    dump << 0 << '\n';
+    dump << idle_1_t << '\n';
+    dump << idle_2_t << '\n';
+    dump << "***EOF***";
 	dump.close();
-
 }
+
+
 bool Generations::time_exceeded(){
 	clock_t end = clock();
 	double elapsed_secs = double(end - this->begin_exec);
