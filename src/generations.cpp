@@ -168,6 +168,7 @@ void Generations::next_generation(){
 	this->population.clear();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		crossing_over(i);
+	//		std::cout << "tu "<<i<<"\n";
 	//	if(random_mutation(gen) < _MUTATION_CHANCE_PCT) {
 	//		std::cout << "tu "<<i<<"\n";
 		//	mutate(i);

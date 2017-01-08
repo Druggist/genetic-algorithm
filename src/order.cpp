@@ -18,33 +18,35 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 	machine2.init(2, tasks[0].get_ready_t());
 	for (unsigned int i = 0; i < tasks.size(); i++){
 		iter = i;
+
 		if (machine1.get_stop_t() >= tasks[i].get_ready_t()){ // when  fits perfectly
-            int ma=machine1.add(tasks[i], maitenance_v);
+			int ma=machine1.add(tasks[i], maitenance_v);
 			while (ma != 0){
 				tasks.push_back(tasks[i]);
 				tasks.erase(tasks.begin()+i);
-                iter++;
-                if (iter == tasks.size())
-                {
-                    iter = i;
-                    machine1.set_stop_t(ma);
-                }
-                ma=machine1.add(tasks[i], maitenance_v);
+				iter++;
+				if (iter == tasks.size())
+				{
+					iter = i;
+					machine1.set_stop_t(ma);
+				}
+				ma=machine1.add(tasks[i], maitenance_v);
 			}
-            if( machine2.get_stop_t() >= machine1.get_stop_t()){
-                machine2.add(tasks[i], maitenance_v);
+			if( machine2.get_stop_t() >= machine1.get_stop_t()){
+				machine2.add(tasks[i], maitenance_v);
 		}else{
 			machine2.set_stop_t(machine1.get_stop_t());
 			machine2.add(tasks[i], maitenance_v);}
 		}
 		else{ // if machine1.get_stop_t() > tasks[i].get_ready_t()
-			for (unsigned int j = i + 1; j < tasks.size(); j++){
-				if(machine1.get_stop_t() >= tasks[i].get_ready_t()){
+			for (unsigned int j = i; j < tasks.size(); j++){
+				if(machine1.get_stop_t() >= tasks[j].get_ready_t()){
 					iter_swap(tasks.begin()+i, tasks.begin()+j);
 					break;
 				}
-				if ( j == tasks.size() -1 ){
-                    machine1.set_stop_t(tasks[i].get_ready_t());
+				if ( j == tasks.size() - 1 ){
+					machine1.set_stop_t(tasks[i].get_ready_t());
+					break;
 				}
 			}
 			i--;
