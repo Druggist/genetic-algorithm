@@ -37,7 +37,8 @@ bool Machine::add(Task task, vector<Maitenance> maitenance_v){
 		int maitenance_id = 0;
 
 		for (unsigned int i = 0; i < maitenance_v.size(); i++){
-			if(maitenance_v[i].get_start_t() >= stop_t){
+			if(maitenance_v[i].get_start_t() > stop_t || maitenance_v[i].get_stop_t() < stop_t) this->stop_t = maitenance_v[i].get_stop_t();
+			if(maitenance_v[i].get_start_t() > stop_t){
 				int task_t = (overlay == 0)?(task.get_op_t(1)):(task.get_punished_op_t());
 				if(maitenance_v[i].get_start_t() <= task_t){
 					overlay++;
