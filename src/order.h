@@ -15,7 +15,7 @@ class Order{
 		int exec_t;
 	public:
 		void init(vector<Task>, vector<Maitenance>);
-
+        int get_machine_start_t(int);
 		int get_exectime();
 		vector<Task> get_tasks();
 };

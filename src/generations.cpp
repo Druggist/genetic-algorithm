@@ -6,14 +6,14 @@ Generations::Generations(string filename){
 
 	Instance instance;
 	Chromosome chromosome;
-	
+
 	instance.read_instance(filename);
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		vector<Task> tasks(instance.get_tasks());
 		random_shuffle(tasks.begin(), tasks.end());
 
-		Order order; 
-		order.init(tasks, instance.get_maitenances()); 
+		Order order;
+		order.init(tasks, instance.get_maitenances());
 		chromosome.order = order;
 		chromosome.rank = 0;
 		this->population.push_back(chromosome);
@@ -38,7 +38,7 @@ void Generations::selection(){
 	if (population_id == 0) av = 0;
 	else av = average();
 
-	for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
+	for (unsigned i = 0; i < population.size(); i++ ){
 		r = ((population[i].order.get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order.get_exectime() * _EXEC_TIME_WEIGHT;
 		if (population[i].order.get_exectime() >= 0.80 * av) counter++;
 		population[i].rank = r;
@@ -66,9 +66,9 @@ void Generations::rebuild(vector<Task>& tasks, int resection){
 				}
 			}
 		}
-		
+
 		for (unsigned int i = resection; i < all_tasks.size(); i++){
-			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i); 
+			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i);
 		}
 		for (unsigned int i = 0; i < duplicates.size(); i++) tasks[duplicates[i]] = all_tasks[i];
 
@@ -177,6 +177,8 @@ void Generations::next_generation(){
 
 void Generations::dump_generation(string filename){
 	ofstream dump;
+	int st = 0, tf = 0, m_iter = 0; //start time, to finish, maitanance iterator
+	char d = ','; // delimiter
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
@@ -184,16 +186,44 @@ void Generations::dump_generation(string filename){
 	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
-	// for(int i = 0; i < t.size(); i++) dump << t[i] << ',';
-	dump << endl;
-//	t = population[0].order->get_tasks(2);
-	//for(int i = 0; i < t.size(); i++){
-//	dump << t[i] << ',';
-//	}
-	dump << endl;
-	//dump << this->maitenance_v.size() << endl << '0' << endl;
+	st = population[0].order.get_machine_start_t(1);
+	for(unsigned int i = 0; i < t.size(); i++){
+        if (!t[i].is_punished()){
+            dump << "op1_" << t[i].get_id() << ',' << st << ',' << t[i].get_op_t(1) << ',';
+            st += t[i].get_op_t(1);
+
+        }else{
+            dump << "op1_" << t[i].get_id() << ',' << st << ',' <<  t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t() << ',';
+            tf = t[i].get_punished_op_t() - (t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t());
+            dump << "maint" << maintanance_v[m_iter].get_id() << ',' << maintanance_v[m_iter].get_start_t() << maintanance_v[m_iter].get_duration() << ',';
+            st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
+            dump << "op1_" << t[i].get_id() << ',' << st << ',' << tf << ',';
+            st += tf;
+            m_iter ++;
+        }
+	}
+    if (m_iter < maintanance_v.size()){
+        for (unsigned int i = m_iter; i< maintanance_v.size(); i++ ){
+            dump << "maint" << maintanance_v[i].get_id() << ',' << maintanance_v[i].get_start_t() << maintanance_v[i].get_duration() << ',';
+        }
+    }
+	dump << endl << "M2:";
+	st = population[0].order.get_machine_start_t(2);
+    for(unsigned int i = 0; i < t.size(); i++){
+        dump << "op2_" << t[i].get_id() << ',' << st << t[i].get_op_t(2) << ',';
+        st += t[i].get_op_t(2);
+    }
+    tf = 0; // use fs to sum maitenance time
+    for (unsigned int i = 0; i < maintanance_v.size(); i++){
+        tf += maintanance_v[i].get_duration();
+    }
+    dump << endl;
+    dump << tf;
+    dump << 0;
+    //dump << idles_sum1;
+    //dump << idles_sum2;
 	dump.close();
-	
+
 }
 bool Generations::time_exceeded(){
 	clock_t end = clock();

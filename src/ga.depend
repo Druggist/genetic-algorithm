@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1483831093 source:e:\git\genetic-algorithm\src\generations.cpp
+	"generations.h"
+
+1483828053 e:\git\genetic-algorithm\src\generations.h
+	"order.h"
+	"config.h"
+	"instance.h"
+	<vector>
+	<algorithm>
+	<math.h>
+	<random>
+	<string>
+	<cstdlib>
+
+1483828053 e:\git\genetic-algorithm\src\order.h
+	"machine.h"
+	"task.h"
+	"maitenance.h"
+	<vector>
+
+1483819909 e:\git\genetic-algorithm\src\machine.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+
+1483824258 e:\git\genetic-algorithm\src\task.h
+	<cstdlib>
+	<math.h>
+
+1483818762 e:\git\genetic-algorithm\src\maitenance.h
+
+1483830686 e:\git\genetic-algorithm\src\config.h
+
+1483828053 e:\git\genetic-algorithm\src\instance.h
+	"task.h"
+	"maitenance.h"
+	<vector>
+	<fstream>
+	<string>
+	<iostream>
+	<ctime>
+	<cstdlib>
+
+1483830050 source:e:\git\genetic-algorithm\src\instance.cpp
+	"instance.h"
+
+1483819921 source:e:\git\genetic-algorithm\src\machine.cpp
+	"machine.h"
+
+1483830947 source:e:\git\genetic-algorithm\src\main.cpp
+	"machine.h"
+	"maitenance.h"
+	"order.h"
+	"task.h"
+	"generations.h"
+	<iostream>
+	<vector>
+	<algorithm>
+	<string>
+	<cstdlib>
+	<fstream>
+
+1483818762 source:e:\git\genetic-algorithm\src\maitenance.cpp
+	"maitenance.h"
+
+1483831946 source:e:\git\genetic-algorithm\src\order.cpp
+	"order.h"
+	<iostream>
+
+1483824258 source:e:\git\genetic-algorithm\src\task.cpp
+	"task.h"
+

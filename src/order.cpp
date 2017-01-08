@@ -62,3 +62,8 @@ int Order::get_exectime(){
 vector<Task> Order::get_tasks(){
 	return this->machine1.get_tasks();
 }
+
+int Order::get_machine_start_t(int m){
+    if ( m == 1 ) return machine1.get_start_t();
+    return machine2.get_start_t();
+}
