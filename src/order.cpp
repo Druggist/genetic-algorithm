@@ -30,10 +30,10 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
                     break;
                 }
 			}
-		if( machine2.get_stop_t() >= tasks[i].get_ready_t()){
-			machine2.add(tasks[i], maitenance_v);
+            if( machine2.get_stop_t() >= machine1.get_stop_t()){
+                machine2.add(tasks[i], maitenance_v);
 		}else{
-			machine2.set_stop_t(tasks[i].get_ready_t());
+			machine2.set_stop_t(machine1.get_stop_t());
 			machine2.add(tasks[i], maitenance_v);}
 
 		}
@@ -43,42 +43,13 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 					iter_swap(tasks.begin()+i, tasks.begin()+j);
 					break;
 				}
-			}
-			if (machine1.get_stop_t() >= tasks[i].get_ready_t()){
-				while (!machine1.add(tasks[i], maitenance_v)){
-					tasks.push_back(tasks[i]);
-					tasks.erase(tasks.begin()+i);
-                    iter++;
-                    if (iter == tasks.size())
-                    {
-                        iter = i;
-                        break;
-                    }
-                }
-				if( machine2.get_stop_t() >= tasks[i].get_ready_t()){
-					machine2.add(tasks[i], maitenance_v);
-				}else{
-					machine2.set_stop_t(tasks[i].get_ready_t());
-					machine2.add(tasks[i], maitenance_v);}
-			}else{ //move rt
-				while (!machine1.add(tasks[i], maitenance_v)){
-					tasks.push_back(tasks[i]);
-					tasks.erase(tasks.begin()+i);
-                    iter++;
-                    if (iter == tasks.size())
-                    {
-                        iter = i;
-                        break;
-                    }
-					}
-				if( machine2.get_stop_t() >= tasks[i].get_ready_t()){
-					machine2.add(tasks[i], maitenance_v);
-				}else{
-					machine2.set_stop_t(tasks[i].get_ready_t());
-					machine2.add(tasks[i], maitenance_v);
+				if ( j == tasks.size() -1 ){
+                    machine1.set_stop_t(tasks[i].get_ready_t());
 				}
 			}
+			i--;
 		}
+
 	}
 }
 
