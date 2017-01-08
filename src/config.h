@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-static unsigned int _POPULATION_SIZE = 10;
+static unsigned int _POPULATION_SIZE = 20;
 static unsigned short _REMOVE_PCT = 50;
 static unsigned short _REMOVE_FAIL_PCT = 3;
 static unsigned short _MIN_RESECTION_PCT = 10;

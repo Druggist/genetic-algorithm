@@ -5,6 +5,7 @@
 #include "task.h"
 #include "maitenance.h"
 #include <vector>
+#include <iostream>
 
 using std::vector;
 
@@ -13,7 +14,7 @@ class Order{
 		Machine machine1, machine2;
 		int exec_t;
 	public:
-		Order(vector<Task>, vector<Maitenance>);
+		void init(vector<Task>, vector<Maitenance>);
 
 		int get_exectime();
 		vector<Task> get_tasks();

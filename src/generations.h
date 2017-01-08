@@ -21,7 +21,7 @@ using std::string;
 
 
 struct Chromosome{
-	Order *order;
+	Order order;
 	double rank;
 };
 

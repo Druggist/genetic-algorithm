@@ -9,23 +9,24 @@ Generations::Generations(string filename){
 	
 	instance.read_instance(filename);
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
-		vector<Task> tasks = instance.get_tasks();
+		vector<Task> tasks(instance.get_tasks());
 		random_shuffle(tasks.begin(), tasks.end());
 
-		Order order(tasks, instance.get_maitenances()); 
-		chromosome.order = &order;
+		Order order; 
+		order.init(tasks, instance.get_maitenances()); 
+		chromosome.order = order;
 		chromosome.rank = 0;
 		this->population.push_back(chromosome);
 	}
 
-	this->previous_population = this->population;
+	this->previous_population = population;
 	this->maintanance_v = instance.get_maitenances();
-	
 }
+
 int Generations::average(){
 	int av = 0;
 	for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
-		av += previous_population[i].order->get_exectime();
+		av += previous_population[i].order.get_exectime();
 	}
 	return av / _POPULATION_SIZE;
 }
@@ -38,14 +39,15 @@ void Generations::selection(){
 	else av = average();
 
 	for (vector<Chromosome>::size_type i = 0; i < population.size(); i++ ){
-		r = ((population[i].order->get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order->get_exectime() * _EXEC_TIME_WEIGHT;
-		if (population[i].order->get_exectime() >= 0.80 * av) counter++;
+		r = ((population[i].order.get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order.get_exectime() * _EXEC_TIME_WEIGHT;
+		if (population[i].order.get_exectime() >= 0.80 * av) counter++;
 		population[i].rank = r;
 	}
 	if (counter >= 0.30 * av) remove_weak();
 	else{
 		// TODO: operate again on previous_population
 		this->population = this->previous_population;
+
 		next_generation();
 	}
 }
@@ -53,7 +55,7 @@ void Generations::selection(){
 void Generations::rebuild(vector<Task>& tasks, int resection){
 		vector<int> missing_tasks;
 		vector<int> duplicates;
-		vector<Task> all_tasks = previous_population[0].order->get_tasks();
+		vector<Task> all_tasks = previous_population[0].order.get_tasks();
 
 		for (int i = 0; i < resection; i++){
 			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i);
@@ -74,18 +76,19 @@ void Generations::rebuild(vector<Task>& tasks, int resection){
 }
 
 void Generations::remove_weak(){
-	int to_remove = floor(_POPULATION_SIZE * _REMOVE_PCT/100.0);
+	int remove_count = floor(_POPULATION_SIZE * _REMOVE_PCT/100.0);
 	random_device rd;
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> dist(0, 99);
+	vector<int> to_remove;
 
 	sort_population();
 	for(int i = _POPULATION_SIZE - 1; i >= 0; i--){
 		if(dist(gen) >= _REMOVE_FAIL_PCT){
 			population.erase(population.begin() + i);
-			to_remove--;
+			remove_count--;
 		}
-		if (to_remove == 0) break;
+		if (remove_count == 0) break;
 	}
 
 	time_exceeded();
@@ -93,31 +96,34 @@ void Generations::remove_weak(){
 	this->previous_population = this->population;
 }
 
-bool Generations::crossing_over(int chromosome_id){
+bool Generations::crossing_over(int itterator){
 	random_device rd;
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_resection(_MIN_RESECTION_PCT, _MAX_RESECTION_PCT);
 	uniform_int_distribution<int> random_chromosome(0, floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1);
-	
 	int chromosome1_num = random_chromosome(gen);
 	int chromosome2_num = random_chromosome(gen);
 	while(chromosome1_num == chromosome2_num) chromosome2_num = random_chromosome(gen);
-	vector<Task> tmp = previous_population[chromosome1_num].order->get_tasks();
+	vector<Task> tmp(previous_population[chromosome1_num].order.get_tasks());
 	int resection = floor(tmp.size() * random_resection(gen)/100.0);
 	if (resection <= 0) return false;
-	
 	vector<Task> tasks(&tmp[0], &tmp[resection - 1]);
+	tmp = previous_population[chromosome2_num].order.get_tasks();
 	vector<Task> tasks2(&tmp[resection], &tmp[tmp.size() - 1]);
 	tasks.insert(tasks.end(), tasks2.begin(), tasks2.end());
 
 	this->rebuild(tasks, resection);
 
-	Chromosome *new_chromosome = new Chromosome;
-	new_chromosome->order = new Order(tasks, this->maintanance_v);
-	new_chromosome->rank = 0;
-	population[chromosome_id] = *new_chromosome;
-	
-	time_exceeded();
+	//std::cout <<itterator <<" tutej "<<previous_population.size()<<" "<<floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1<<"\n";
+	Order order;
+	order.init(tasks, this->maintanance_v);
+	Chromosome new_chromosome;
+	new_chromosome.order = order;
+	new_chromosome.rank = 0;
+	this->population.push_back(new_chromosome);
+	/*
+
+	time_exceeded();*/
 
 	return true;
 }
@@ -125,7 +131,7 @@ bool Generations::crossing_over(int chromosome_id){
 void Generations::mutate(int chromosome_id){
 	random_device rd;
 	mt19937_64 gen(rd());
-	vector<Task> tasks = population[chromosome_id].order->get_tasks();
+	vector<Task> tasks = population[chromosome_id].order.get_tasks();
 	uniform_int_distribution<int> random_task_id(0, tasks.size() - 1);
 	int task_id[2];
 
@@ -134,10 +140,12 @@ void Generations::mutate(int chromosome_id){
 
 	iter_swap(tasks.begin() + task_id[0], tasks.begin() + task_id[1]);
 
-	Chromosome *new_chromosome = new Chromosome;
-	new_chromosome->order = new Order(tasks, this->maintanance_v);
-	new_chromosome->rank = 0;
-	population[chromosome_id] = *new_chromosome;
+	Order order;
+	order.init(tasks, this->maintanance_v);
+	Chromosome new_chromosome;
+	new_chromosome.order = order;
+	new_chromosome.rank = 0;
+	population[chromosome_id] = new_chromosome;
 
 	time_exceeded();
 }
@@ -148,7 +156,6 @@ inline bool Less_than_rank::operator() (const Chromosome& chromosome1, const Chr
 
 void Generations::sort_population(){
 	sort(population.begin(), population.end(), Less_than_rank());
-	time_exceeded();
 }
 
 void Generations::next_generation(){
@@ -157,9 +164,15 @@ void Generations::next_generation(){
 	uniform_int_distribution<int> random_mutation(0, 100);
 
 	remove_weak();
+
+	this->population.clear();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		crossing_over(i);
-		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) mutate(i);
+	//	if(random_mutation(gen) < _MUTATION_CHANCE_PCT) {
+	//		std::cout << "tu "<<i<<"\n";
+		//	mutate(i);
+	//	}
+			//std::cout << "tutej "<<i<<"\n";
 	}
 	this->population_id++;
 
@@ -172,9 +185,9 @@ void Generations::dump_generation(string filename){
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
 	sort_population();
-	dump << population[0].order->get_exectime() /*<< gen_exec_time*/ << endl;
+	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
 	dump << "M1:";
-	vector <Task> t = population[0].order->get_tasks();
+	vector <Task> t = population[0].order.get_tasks();
 	// for(int i = 0; i < t.size(); i++) dump << t[i] << ',';
 	dump << endl;
 //	t = population[0].order->get_tasks(2);
@@ -190,7 +203,7 @@ bool Generations::time_exceeded(){
 	clock_t end = clock();
 	double elapsed_secs = double(end - this->begin_exec);
 	if(elapsed_secs > _EXEC_TIME_SECS){
-		save_and_exit("data/out.txt");
+	//	save_and_exit("data/out.txt");
 		return true;
 	}
 	return false;
