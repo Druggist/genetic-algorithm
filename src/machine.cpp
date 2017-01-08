@@ -48,6 +48,7 @@ int Machine::add(Task task, vector<Maitenance> maitenance_v){
 			}
 		}
 
+		task.set_start_t(1, stop_t);
 		if(overlay == 0) this->stop_t += task.get_op_t(1);
 		else{
 			this->stop_t += maitenance_v[maitenance_id].get_duration() + task.get_punished_op_t();
@@ -55,6 +56,7 @@ int Machine::add(Task task, vector<Maitenance> maitenance_v){
 		}
 		tasks.push_back(task);
 	}else if( id == 2){
+		task.set_start_t(2, stop_t);
 		tasks.push_back(task);
 		this->stop_t += task.get_op_t(2);
 	}

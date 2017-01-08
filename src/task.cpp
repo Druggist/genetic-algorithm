@@ -13,9 +13,14 @@ int Task::get_ready_t(){
 	return ready_t;
 }
 
-int Task::get_op_t(int i){
-	if (i == 1)	return op1_t;
+int Task::get_op_t(int o){
+	if (o == 1)	return op1_t;
 	return op2_t;
+}
+
+int Task::get_start_t(int o){
+	if (o == 1)	return op1_start_t;
+	return op2_start_t;
 }
 
 int Task::get_punished_op_t(){
@@ -33,6 +38,11 @@ void Task::set_ready_t(int t){
 void Task::set_op_t(int o, int t){
 	if (o == 1) op1_t = t;
 	else if (o == 2) op2_t = t;
+}
+
+void Task::set_start_t(int o, int t){
+	if (o == 1) op1_start_t = t;
+	else if (o == 2) op2_start_t = t;
 }
 
 void Task::punish(int t){
