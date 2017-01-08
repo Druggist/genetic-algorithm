@@ -16,6 +16,7 @@ class Order{
         int get_machine_start_t(int);
 		int get_exectime();
 		vector<Task> get_tasks();
+		vector<Task> get_tasks_2();
 };
 
 #endif // ORDER_H

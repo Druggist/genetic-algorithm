@@ -170,7 +170,7 @@ void Generations::next_generation(){
 
 void Generations::dump_generation(string filename){
 	ofstream dump;
-	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0; //start time, to finish, maitanance iterator
+	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0, n; //start time, to finish, maitanance iterator
 	char d = ','; // delimiter
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
@@ -181,13 +181,22 @@ void Generations::dump_generation(string filename){
 	vector <Task> t = population[0].order.get_tasks();
 	for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
+        std::cout<< i << " " << maintanance_v[i].get_duration() << '\n';
     }
     st = 0;
+    std::cout<<"************************\n";
+    for (unsigned int i = 0; i < t.size(); i++)
+    {
+        std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
+
+    }
     for (unsigned int i = 0; i < t.size(); i++){
-        if (!t[i].is_punished()){
+        if (m_iter < maintanance_v.size()){
+        if (t[i].is_punished()==false){
             if (maintanance_v[m_iter].get_start_t() > t[i].get_start_t(1)){
                 if (st < t[i].get_start_t(1)){
-                        dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+
+                        dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d  ;
                         idle_1_t += t[i].get_start_t(1) - st;
                         idle++;
                 }
@@ -196,13 +205,14 @@ void Generations::dump_generation(string filename){
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
             }else{
                 if (st < maintanance_v[m_iter].get_start_t() ){
-                    dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                    dump << "idle1_" << idle << d << st << d << maintanance_v[m_iter].get_start_t() - st  << d;
                     idle_1_t += maintanance_v[m_iter].get_start_t() - st;
                     idle++;
                 }
                 dump << "maint1_" << m_iter <<d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
-                m_iter++;
                 st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
+                m_iter++;
+
                 if (st < t[i].get_start_t(1)){
                         dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
                         idle_1_t += t[i].get_start_t(1) - st;
@@ -217,19 +227,29 @@ void Generations::dump_generation(string filename){
                     idle_1_t += t[i].get_start_t(1) - st;
                     idle++;
                 }
-                    tf = t[i].get_op_t(1) - (t[i].get_op_t(1) - maintanance_v[m_iter].get_duration());
-                    dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) - maintanance_v[m_iter].get_duration() << d;
-                    dump << "maint1_" << m_iter << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration();
-                    m_iter++;
+                    tf = t[i].get_punished_op_t() - (t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t());
+                    dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t() << d;
+                    dump << "maint1_" << m_iter << d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
                     dump << "op1_" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
                     st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() + tf;
+                    m_iter++;
             }
+        }else{
+            if(st < t[i].get_start_t(1)){
+                dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
+                idle++;
+                idle_1_t += t[i].get_start_t(1) - st;
+            }
+            dump << "op2_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
+            st = t[i].get_start_t(1) + t[i].get_op_t(1);
+        }
 
         }
         st = 0;
         idle = 0;
         dump << endl;
         dump << "M2:";
+        t = population[0].order.get_tasks_2();
         for( unsigned int i = 0; i< t.size(); i++){
             if(st < t[i].get_start_t(2)){
                 dump << "idle2_" << idle << d << st << d << t[i].get_start_t(2) - st << d;
