@@ -31,20 +31,20 @@ void Machine::set_stop_t(int t){
 	stop_t = t;
 }
 
-bool Machine::add(Task task, vector<Maitenance> maitenance_v){
+int Machine::add(Task task, vector<Maitenance> maitenance_v){
 	if (id == 1){
 		int overlay = 0;
 		int maitenance_id = 0;
 
 		for (unsigned int i = 0; i < maitenance_v.size(); i++){
-			if(maitenance_v[i].get_start_t() < stop_t || maitenance_v[i].get_stop_t() > stop_t) this->stop_t = maitenance_v[i].get_stop_t();
+			if(maitenance_v[i].get_start_t() <= stop_t || maitenance_v[i].get_stop_t() > stop_t) this->stop_t = maitenance_v[i].get_stop_t();
 			if(maitenance_v[i].get_start_t() > stop_t){
 				int task_t = (overlay == 0)?(task.get_op_t(1)):(task.get_punished_op_t());
 				if(maitenance_v[i].get_start_t() <= task_t){
 					overlay++;
-					maitenance_id = i;
+					if(overlay == 1) maitenance_id = i;
 				}else if(overlay <= 1) break;
-				if(overlay > 1) return false;
+				if(overlay > 1) return maitenance_v[maitenance_id].get_start_t();
 			}
 		}
 
@@ -58,5 +58,5 @@ bool Machine::add(Task task, vector<Maitenance> maitenance_v){
 		tasks.push_back(task);
 		this->stop_t += task.get_op_t(2);
 	}
-	return true;
+	return 0;
 }

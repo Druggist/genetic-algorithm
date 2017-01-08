@@ -23,7 +23,7 @@ class Machine{
 		void set_start_t(int);
 		void set_stop_t(int);
 
-		bool add(Task, vector<Maitenance>);
+		int add(Task, vector<Maitenance>);
 
 		/*
 		bool add(int, vector<Task>, vector<Maitenance>);
