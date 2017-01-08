@@ -24,12 +24,6 @@ class Machine{
 		void set_stop_t(int);
 
 		int add(Task, vector<Maitenance>);
-
-		/*
-		bool add(int, vector<Task>, vector<Maitenance>);
-		bool add(Task_t, vector<Maitenance>);
-		void addt(int, int, vector<Task>);
-		void addt(int, Task_t);*/
 };
 
 #endif // MACHINE_H

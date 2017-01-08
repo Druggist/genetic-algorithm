@@ -114,16 +114,14 @@ bool Generations::crossing_over(int itterator){
 
 	this->rebuild(tasks, resection);
 
-	//std::cout <<itterator <<" tutej "<<previous_population.size()<<" "<<floor(_POPULATION_SIZE * _REMOVE_PCT/100.0) - 1<<"\n";
 	Order order;
 	order.init(tasks, this->maintanance_v);
 	Chromosome new_chromosome;
 	new_chromosome.order = order;
 	new_chromosome.rank = 0;
 	this->population.push_back(new_chromosome);
-	/*
 
-	time_exceeded();*/
+	time_exceeded();
 
 	return true;
 }
@@ -168,12 +166,9 @@ void Generations::next_generation(){
 	this->population.clear();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		crossing_over(i);
-	//		std::cout << "tu "<<i<<"\n";
-	//	if(random_mutation(gen) < _MUTATION_CHANCE_PCT) {
-	//		std::cout << "tu "<<i<<"\n";
-		//	mutate(i);
-	//	}
-			//std::cout << "tutej "<<i<<"\n";
+		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) {
+			mutate(i);
+		}
 	}
 	this->population_id++;
 
