@@ -17,7 +17,7 @@ void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
 	}
 
 	machine1.init(1, tasks[0].get_ready_t());
-	machine2.init(2, tasks[0].get_ready_t());
+	machine2.init(2, tasks[0].get_ready_t()+tasks[0].get_op_t(1));
 
 	for (unsigned int i = 0; i < tasks.size(); i++){
 		iter = i;

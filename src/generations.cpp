@@ -179,16 +179,15 @@ void Generations::dump_generation(string filename){
 	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
-	st = population[0].order.get_machine_start_t(1);
 	for(unsigned int i = 0; i < t.size(); i++){
         if (!t[i].is_punished()){
-            dump << "op1_" << t[i].get_id() << ',' << st << ',' << t[i].get_op_t(1) << ',';
+            dump << "op1_" << t[i].get_id() << ',' << t[i]. << ',' << t[i].get_op_t(1) << ',';
             st += t[i].get_op_t(1);
 
         }else{
             dump << "op1_" << t[i].get_id() << ',' << st << ',' <<  t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t() << ',';
             tf = t[i].get_punished_op_t() - (t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t());
-            dump << "maint" << maintanance_v[m_iter].get_id() << ',' << maintanance_v[m_iter].get_start_t() << maintanance_v[m_iter].get_duration() << ',';
+            dump << "maint" << maintanance_v[m_iter].get_id() << ',' << maintanance_v[m_iter].get_start_t() << ',' << maintanance_v[m_iter].get_duration() << ',';
             st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
             dump << "op1_" << t[i].get_id() << ',' << st << ',' << tf << ',';
             st += tf;
@@ -197,13 +196,13 @@ void Generations::dump_generation(string filename){
 	}
     if (m_iter < maintanance_v.size()){
         for (unsigned int i = m_iter; i< maintanance_v.size(); i++ ){
-            dump << "maint" << maintanance_v[i].get_id() << ',' << maintanance_v[i].get_start_t() << maintanance_v[i].get_duration() << ',';
+            dump << "maint" << maintanance_v[i].get_id() << ',' << maintanance_v[i].get_start_t() << ',' << maintanance_v[i].get_duration() << ',';
         }
     }
 	dump << endl << "M2:";
 	st = population[0].order.get_machine_start_t(2);
     for(unsigned int i = 0; i < t.size(); i++){
-        dump << "op2_" << t[i].get_id() << ',' << st << t[i].get_op_t(2) << ',';
+        dump << "op2_" << t[i].get_id() << ',' << st << ',' << t[i].get_op_t(2) << ',';
         st += t[i].get_op_t(2);
     }
     tf = 0; // use fs to sum maitenance time
