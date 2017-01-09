@@ -249,10 +249,10 @@ void Generations::dump_generation(string filename){
                     idle_1_t += t[i].get_start_t(1) - st;
                     idle++;
                 }
-                    tf = t[i].get_punished_op_t() - (t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t());
-                    dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_punished_op_t() - maintanance_v[m_iter].get_start_t() << d;
+                    tf = t[i].get_punished_op_t() - (maintanance_v[m_iter].get_start_t() - t[i].get_start_t(1));
+                    dump << "op1_w" << t[i].get_id() << d << t[i].get_start_t(1) << d <<  maintanance_v[m_iter].get_start_t() - t[i].get_start_t(1) << d;
                     dump << "maint1_" << m_iter << d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
-                    dump << "op1_" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
+                    dump << "op1_g" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
                     st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() + tf;
                     m_iter++;
             }
