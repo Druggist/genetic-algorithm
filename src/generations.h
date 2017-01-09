@@ -31,6 +31,7 @@ struct Less_than_rank{
 
 class Generations{
 	private: 
+		unsigned int first_order;
 		unsigned int population_id;
 		vector<Chromosome> previous_population;
 		vector<Chromosome> population;

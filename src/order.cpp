@@ -1,7 +1,8 @@
 #include "order.h"
 
 void Order::init(vector<Task> tasks, vector<Maitenance> maitenance_v){
-	int machine1_ready_time = 10000, first_job_rt_pos = 0, iter;
+	int machine1_ready_time = 10000, first_job_rt_pos = 0;
+	unsigned int iter;
 
 	if (tasks[0].get_ready_t() == 0) machine1_ready_time = 0;
 	else{

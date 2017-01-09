@@ -19,9 +19,10 @@ Generations::Generations(string input, string output){
 		chromosome.rank = 0;
 		this->population.push_back(chromosome);
 	}
-
+	sort_population();
 	this->previous_population = population;
 	this->maintanance_v = instance.get_maitenances();
+	this->first_order = population[0].order.get_exectime();
 }
 
 int Generations::average(){
@@ -33,11 +34,10 @@ int Generations::average(){
 }
 
 void Generations::selection(){
-	unsigned int av;
+	//unsigned int av;
 	double r;
-	unsigned int counter = 0;
-	if (population_id == 0) av = 0;
-	else av = average();
+	//if (population_id == 0) av = 0;
+	//else av = average();
 
 	for (unsigned i = 0; i < population.size(); i++ ){
 		r = population[i].order.get_exectime();
@@ -51,7 +51,7 @@ void Generations::rebuild(vector<Task>& tasks, int resection){
 		vector<Task> all_tasks(this->previous_population[0].order.get_tasks());
 
 		for (int i = 0; i < resection; i++){
-			for (int j = resection; j < tasks.size(); j++){
+			for (unsigned j = resection; j < tasks.size(); j++){
 				if(tasks[i].get_id() == tasks[j].get_id()) {
 					duplicates.push_back(j);
 					break;
@@ -173,13 +173,14 @@ void Generations::next_generation(){
 
 void Generations::dump_generation(string filename){
 	ofstream dump;
-	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0; //start time, to finish, maitanance iterator
+	unsigned int m_iter = 0;
+	int st = 0, tf = 0,  m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0; //start time, to finish, maitanance iterator
 	char d = ','; // delimiter
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
 	sort_population();
-	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
+	dump << population[0].order.get_exectime() << d << first_order << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
 	/*for (unsigned int i = 0; i < maintanance_v.size(); i++){
@@ -193,14 +194,22 @@ void Generations::dump_generation(string filename){
         std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
 
     }*/
+    std::cout<< "id" << "\t" << "start" << "\t" << "op_time" << "\t" << "end_time" << "\t" << "punished"<< endl;
      for (unsigned int i = 0; i < t.size(); i++)
     {
-        std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) << "    " << t[i].is_punished() << endl;
+        int time;
+        if (t[i].is_punished()==true){
+        	time = t[i].get_punished_op_t();
+        } else{
+        	time = t[i].get_op_t(1);
+        }
+        std::cout<< t[i].get_id() << "\t" << t[i].get_start_t(1) << "\t" << time << "\t" << t[i].get_start_t(1) + time << "\t\t" <<  t[i].is_punished() << endl;
 
     }
+    std::cout<< "************\n";
     for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
-        std::cout<< i << "    " <<  maintanance_v[i].get_start_t() << "    " << maintanance_v[i].get_duration() << '\n';
+        std::cout<< i << "\t" <<  maintanance_v[i].get_start_t() << "\t" << maintanance_v[i].get_duration() << '\n';
     }
 
     for (unsigned int i = 0; i < t.size(); i++){
@@ -214,7 +223,7 @@ void Generations::dump_generation(string filename){
                         idle++;
                 }
 
-                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
+                dump << "op1_k" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
             }else{
                 if (st < maintanance_v[m_iter].get_start_t() ){
@@ -231,7 +240,7 @@ void Generations::dump_generation(string filename){
                         idle_1_t += t[i].get_start_t(1) - st;
                         idle ++;
                 }
-                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1)<<d;
+                dump << "op1_o" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1)<<d;
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
                 }
             }else{ // punished
