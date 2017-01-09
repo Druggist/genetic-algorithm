@@ -48,22 +48,22 @@ void Generations::selection(){
 void Generations::rebuild(vector<Task>& tasks, int resection){
 		vector<int> missing_tasks;
 		vector<int> duplicates;
-		vector<Task> all_tasks = previous_population[0].order.get_tasks();
+		vector<Task> all_tasks(this->previous_population[0].order.get_tasks());
 
 		for (int i = 0; i < resection; i++){
-			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i);
-			for (unsigned int j = resection; j < tasks.size(); j++){
-				if (tasks[i] == tasks[j]){
+			for (int j = resection; j < tasks.size(); j++){
+				if(tasks[i].get_id() == tasks[j].get_id()) {
 					duplicates.push_back(j);
 					break;
 				}
 			}
 		}
 
-		for (unsigned int i = resection; i < all_tasks.size(); i++){
-			if(find(tasks.begin(), tasks.end(), all_tasks[i]) != tasks.end()) missing_tasks.push_back(i);
+		for (unsigned int i = 0; i < all_tasks.size(); i++){
+			if(find(tasks.begin(), tasks.end(), all_tasks[i]) == tasks.end() && find(missing_tasks.begin(), missing_tasks.end(), i) == missing_tasks.end()) missing_tasks.push_back(i);
 		}
-		for (unsigned int i = 0; i < duplicates.size(); i++) tasks[duplicates[i]] = all_tasks[i];
+		
+		for (unsigned int i = 0; i < duplicates.size(); i++) tasks[duplicates[i]] = all_tasks[missing_tasks[i]];
 
 		time_exceeded();
 }
@@ -100,9 +100,9 @@ bool Generations::crossing_over(int itterator){
 	vector<Task> tmp(previous_population[chromosome1_num].order.get_tasks());
 	int resection = floor(tmp.size() * random_resection(gen)/100.0);
 	if (resection <= 0) return false;
-	vector<Task> tasks(&tmp[0], &tmp[resection - 1]);
+	vector<Task> tasks(&tmp[0], &tmp[resection]);
 	tmp = previous_population[chromosome2_num].order.get_tasks();
-	vector<Task> tasks2(&tmp[resection], &tmp[tmp.size() - 1]);
+	vector<Task> tasks2(&tmp[resection], &tmp[tmp.size()]);
 	tasks.insert(tasks.end(), tasks2.begin(), tasks2.end());
 
 	this->rebuild(tasks, resection);
@@ -283,7 +283,7 @@ void Generations::dump_generation(string filename){
 
 bool Generations::time_exceeded(){
 	clock_t end = clock();
-	double elapsed_secs = double(end - this->begin_exec);
+	double elapsed_secs = double(end - this->begin_exec) / CLOCKS_PER_SEC;;
 	if(elapsed_secs > _EXEC_TIME_SECS){
 		dump_generation(this->output);
 		exit(0);
