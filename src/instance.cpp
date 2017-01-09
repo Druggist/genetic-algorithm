@@ -57,7 +57,7 @@ void Instance::dump_instance(string filename){
 			file << task_v[i].get_op_t(1) << ";" << task_v[i].get_op_t(2) << ";" << "1" <<";" << "2" << ";" << task_v[i].get_ready_t() << ";" << endl;
 		}
 		for (vector<int>::size_type i = 0; i < maitenance_v.size(); i++){
-			file << maitenance_v[i].get_id() <<';' << 1 << ";" << maitenance_v[i].get_duration() << ";" << maitenance_v[i].get_start_t() << ";" << endl;
+			file << maitenance_v[i].get_id() <<';' << 1 << ";" << maitenance_v[i].get_start_t() << ";" << maitenance_v[i].get_duration() << ";" <<  endl;
 		}
 	}
 	else{
