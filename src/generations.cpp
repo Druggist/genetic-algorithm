@@ -40,8 +40,7 @@ void Generations::selection(){
 	else av = average();
 
 	for (unsigned i = 0; i < population.size(); i++ ){
-		r = ((population[i].order.get_exectime() * 100) / av) * _IMPROVE_WEIGHT  + population[i].order.get_exectime() * _EXEC_TIME_WEIGHT;
-		if (population[i].order.get_exectime() >= 0.80 * av) counter++;
+		r = population[i].order.get_exectime();
 		population[i].rank = r;
 	}
 }
@@ -192,6 +191,16 @@ void Generations::dump_generation(string filename){
         std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
 
     }*/
+     for (unsigned int i = 0; i < t.size(); i++)
+    {
+        std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) << "    " << t[i].is_punished() << endl;
+
+    }
+    for (unsigned int i = 0; i < maintanance_v.size(); i++){
+        m_sum += maintanance_v[i].get_duration();
+        std::cout<< i << "    " <<  maintanance_v[i].get_start_t() << "    " << maintanance_v[i].get_duration() << '\n';
+    }
+
     for (unsigned int i = 0; i < t.size(); i++){
         if (m_iter < maintanance_v.size()){
         if (t[i].is_punished()==false){
