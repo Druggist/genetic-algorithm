@@ -251,7 +251,7 @@ void Generations::dump_generation(string filename){
                 idle++;
                 idle_1_t += t[i].get_start_t(1) - st;
             }
-            dump << "op2_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
+            dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
             st = t[i].get_start_t(1) + t[i].get_op_t(1);
         }
 
