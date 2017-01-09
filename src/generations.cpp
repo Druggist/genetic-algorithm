@@ -183,10 +183,10 @@ void Generations::dump_generation(string filename){
 	dump << population[0].order.get_exectime() << d << first_order << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
-	/*for (unsigned int i = 0; i < maintanance_v.size(); i++){
+	for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
-        std::cout<< i << " " << maintanance_v[i].get_duration() << '\n';
-    }*/
+        //std::cout<< i << " " << maintanance_v[i].get_duration() << '\n';
+    }
     st = 0;
  /*   std::cout<<"************************\n";
     for (unsigned int i = 0; i < t.size(); i++)
@@ -194,8 +194,8 @@ void Generations::dump_generation(string filename){
         std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
 
     }*/
-    std::cout<< "id" << "\t" << "start" << "\t" << "op_time" << "\t" << "end_time" << "\t" << "punished"<< endl;
-     for (unsigned int i = 0; i < t.size(); i++)
+    //std::cout<< "id" << "\t" << "start" << "\t" << "op_time" << "\t" << "end_time" << "\t" << "punished"<< endl;
+     /*for (unsigned int i = 0; i < t.size(); i++)
     {
         int time;
         if (t[i].is_punished()==true){
@@ -206,12 +206,12 @@ void Generations::dump_generation(string filename){
         std::cout<< t[i].get_id() << "\t" << t[i].get_start_t(1) << "\t" << time << "\t" << t[i].get_start_t(1) + time << "\t\t" <<  t[i].is_punished() << endl;
 
     }
-    std::cout<< "************\n";
+    //std::cout<< "************\n";
     for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
         std::cout<< i << "\t" <<  maintanance_v[i].get_start_t() << "\t" << maintanance_v[i].get_duration() << '\n';
     }
-
+	*/
     for (unsigned int i = 0; i < t.size(); i++){
         if (m_iter < maintanance_v.size()){
         if (t[i].is_punished()==false){
@@ -223,7 +223,7 @@ void Generations::dump_generation(string filename){
                         idle++;
                 }
 
-                dump << "op1_k" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
+                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1) << d;
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
             }else{
                 if (st < maintanance_v[m_iter].get_start_t() ){
@@ -240,7 +240,7 @@ void Generations::dump_generation(string filename){
                         idle_1_t += t[i].get_start_t(1) - st;
                         idle ++;
                 }
-                dump << "op1_o" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1)<<d;
+                dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d << t[i].get_op_t(1)<<d;
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
                 }
             }else{ // punished
@@ -260,9 +260,9 @@ void Generations::dump_generation(string filename){
                     idle++;
                 }
                     tf = t[i].get_punished_op_t() - (maintanance_v[m_iter].get_start_t() - t[i].get_start_t(1));
-                    dump << "op1_w" << t[i].get_id() << d << t[i].get_start_t(1) << d <<  maintanance_v[m_iter].get_start_t() - t[i].get_start_t(1) << d;
+                    dump << "op1_" << t[i].get_id() << d << t[i].get_start_t(1) << d <<  maintanance_v[m_iter].get_start_t() - t[i].get_start_t(1) << d;
                     dump << "maint1_" << m_iter << d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
-                    dump << "op1_g" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
+                    dump << "op1_" << t[i].get_id() << d << maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() << d << tf << d;
                     st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration() + tf;
                     m_iter++;
             }
