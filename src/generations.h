@@ -36,6 +36,7 @@ class Generations{
 		vector<Chromosome> population;
 		vector<Maitenance> maintanance_v;
 		clock_t begin_exec;
+		string output;
 		void rebuild(vector<Task>&, int);
 		bool crossing_over(int);
 		void remove_weak();
@@ -44,10 +45,9 @@ class Generations{
 		void mutate(int);
 		void sort_population();
 		bool time_exceeded();
-        void save_and_exit(string filename);
 	public:
 		void next_generation();
-		Generations(string filename);
-        void dump_generation(string filename);
+		Generations(string, string);
+        void dump_generation(string);
 };
 #endif // GENERATIONS_H

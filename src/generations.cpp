@@ -1,13 +1,14 @@
 #include "generations.h"
 //TODO: time-based killing
-Generations::Generations(string filename){
+Generations::Generations(string input, string output){
 	this->population_id = 0;
 	this->begin_exec = clock();
+	this->output = output;
 
 	Instance instance;
 	Chromosome chromosome;
 
-	instance.read_instance(filename);
+	instance.read_instance(input);
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		vector<Task> tasks(instance.get_tasks());
 		random_shuffle(tasks.begin(), tasks.end());
@@ -154,6 +155,7 @@ void Generations::next_generation(){
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_mutation(0, 100);
 
+	selection();
 	remove_weak();
 
 	this->population.clear();
@@ -170,7 +172,7 @@ void Generations::next_generation(){
 
 void Generations::dump_generation(string filename){
 	ofstream dump;
-	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0, n; //start time, to finish, maitanance iterator
+	int st = 0, tf = 0, m_iter = 0, m_sum = 0, idle = 0, idle_1_t = 0, idle_2_t = 0; //start time, to finish, maitanance iterator
 	char d = ','; // delimiter
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
@@ -179,17 +181,17 @@ void Generations::dump_generation(string filename){
 	dump << population[0].order.get_exectime() /*<< gen_exec_time*/ << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
-	for (unsigned int i = 0; i < maintanance_v.size(); i++){
+	/*for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
         std::cout<< i << " " << maintanance_v[i].get_duration() << '\n';
-    }
+    }*/
     st = 0;
-    std::cout<<"************************\n";
+ /*   std::cout<<"************************\n";
     for (unsigned int i = 0; i < t.size(); i++)
     {
         std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
 
-    }
+    }*/
     for (unsigned int i = 0; i < t.size(); i++){
         if (m_iter < maintanance_v.size()){
         if (t[i].is_punished()==false){
@@ -274,13 +276,9 @@ bool Generations::time_exceeded(){
 	clock_t end = clock();
 	double elapsed_secs = double(end - this->begin_exec);
 	if(elapsed_secs > _EXEC_TIME_SECS){
-	//	save_and_exit("data/out.txt");
+		dump_generation(this->output);
+		exit(0);
 		return true;
 	}
 	return false;
-}
-
-void Generations::save_and_exit(string filename){
-	dump_generation(filename);
-	exit(0);
 }
