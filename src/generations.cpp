@@ -244,6 +244,16 @@ void Generations::dump_generation(string filename){
                 st = t[i].get_start_t(1) + t[i].get_op_t(1);
                 }
             }else{ // punished
+            	if (maintanance_v[m_iter].get_start_t() < t[i].get_start_t(1)){
+            		if (st < maintanance_v[m_iter].get_start_t() ){
+                    dump << "idle1_" << idle << d << st << d << maintanance_v[m_iter].get_start_t() - st  << d;
+                    idle_1_t += maintanance_v[m_iter].get_start_t() - st;
+                    idle++;
+                }
+                dump << "maint1_" << m_iter <<d << maintanance_v[m_iter].get_start_t() << d << maintanance_v[m_iter].get_duration() << d;
+                st = maintanance_v[m_iter].get_start_t() + maintanance_v[m_iter].get_duration();
+                m_iter++;
+            	}
                 if (st < t[i].get_start_t(1)){
                     dump << "idle1_" << idle << d << st << d << t[i].get_start_t(1) - st << d;
                     idle_1_t += t[i].get_start_t(1) - st;
