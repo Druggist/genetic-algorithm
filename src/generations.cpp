@@ -127,8 +127,9 @@ void Generations::mutate(int chromosome_id){
 	int task_id[2];
 
 	task_id[0] = random_task_id(gen);
+	task_id[1] = random_task_id(gen);
 	while(task_id[0] == task_id[1]) task_id[1] = random_task_id(gen);
-
+	
 	iter_swap(tasks.begin() + task_id[0], tasks.begin() + task_id[1]);
 
 	Order order;
@@ -153,13 +154,14 @@ void Generations::next_generation(){
 	random_device rd;
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_mutation(0, 100);
-
 	selection();
 	remove_weak();
 
 	this->population.clear();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
+//	std::cout<<"du\n";
 		crossing_over(i);
+	//std::cout<<"da\n";
 		if(random_mutation(gen) < _MUTATION_CHANCE_PCT) {
 			mutate(i);
 		}
