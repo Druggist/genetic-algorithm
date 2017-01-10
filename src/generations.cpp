@@ -62,7 +62,7 @@ void Generations::rebuild(vector<Task>& tasks, int resection){
 		for (unsigned int i = 0; i < all_tasks.size(); i++){
 			if(find(tasks.begin(), tasks.end(), all_tasks[i]) == tasks.end() && find(missing_tasks.begin(), missing_tasks.end(), i) == missing_tasks.end()) missing_tasks.push_back(i);
 		}
-		
+
 		for (unsigned int i = 0; i < duplicates.size(); i++) tasks[duplicates[i]] = all_tasks[missing_tasks[i]];
 
 		time_exceeded();
@@ -129,7 +129,7 @@ void Generations::mutate(int chromosome_id){
 	task_id[0] = random_task_id(gen);
 	task_id[1] = random_task_id(gen);
 	while(task_id[0] == task_id[1]) task_id[1] = random_task_id(gen);
-	
+
 	iter_swap(tasks.begin() + task_id[0], tasks.begin() + task_id[1]);
 
 	Order order;
@@ -150,13 +150,14 @@ void Generations::sort_population(){
 	sort(population.begin(), population.end(), Less_than_rank());
 }
 
+
 void Generations::next_generation(){
 	random_device rd;
 	mt19937_64 gen(rd());
 	uniform_int_distribution<int> random_mutation(0, 100);
 	selection();
 	remove_weak();
-
+    this->elite.push_back(this->population[0]);
 	this->population.clear();
 	for (unsigned int i = 0; i < _POPULATION_SIZE; i++){
 //	std::cout<<"du\n";
@@ -179,39 +180,15 @@ void Generations::dump_generation(string filename){
 	dump.open(filename.c_str());
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
+	this->population.insert(population.begin(), elite.begin(), elite.end());
 	sort_population();
 	dump << population[0].order.get_exectime() << d << first_order << endl;
 	dump << "M1:";
 	vector <Task> t = population[0].order.get_tasks();
 	for (unsigned int i = 0; i < maintanance_v.size(); i++){
         m_sum += maintanance_v[i].get_duration();
-        //std::cout<< i << " " << maintanance_v[i].get_duration() << '\n';
     }
     st = 0;
- /*   std::cout<<"************************\n";
-    for (unsigned int i = 0; i < t.size(); i++)
-    {
-        std::cout<< t[i].get_start_t(1) << "    " << t[i].get_op_t(1) <<endl;
-
-    }*/
-    //std::cout<< "id" << "\t" << "start" << "\t" << "op_time" << "\t" << "end_time" << "\t" << "punished"<< endl;
-     /*for (unsigned int i = 0; i < t.size(); i++)
-    {
-        int time;
-        if (t[i].is_punished()==true){
-        	time = t[i].get_punished_op_t();
-        } else{
-        	time = t[i].get_op_t(1);
-        }
-        std::cout<< t[i].get_id() << "\t" << t[i].get_start_t(1) << "\t" << time << "\t" << t[i].get_start_t(1) + time << "\t\t" <<  t[i].is_punished() << endl;
-
-    }
-    //std::cout<< "************\n";
-    for (unsigned int i = 0; i < maintanance_v.size(); i++){
-        m_sum += maintanance_v[i].get_duration();
-        std::cout<< i << "\t" <<  maintanance_v[i].get_start_t() << "\t" << maintanance_v[i].get_duration() << '\n';
-    }
-	*/
     for (unsigned int i = 0; i < t.size(); i++){
         if (m_iter < maintanance_v.size()){
         if (t[i].is_punished()==false){

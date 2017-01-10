@@ -3,6 +3,7 @@
 
 #include "task.h"
 #include "maitenance.h"
+#include "config.h"
 #include <vector>
 #include <fstream>
 #include <string>

@@ -30,11 +30,12 @@ struct Less_than_rank{
 };
 
 class Generations{
-	private: 
+	private:
 		unsigned int first_order;
 		unsigned int population_id;
 		vector<Chromosome> previous_population;
 		vector<Chromosome> population;
+		vector<Chromosome> elite;
 		vector<Maitenance> maintanance_v;
 		clock_t begin_exec;
 		string output;
