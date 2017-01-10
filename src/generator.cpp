@@ -14,7 +14,7 @@ int main(int argc, char * argv[]){
   for (int i = 0; i < quantity; i++){
   	Instance I;
   	I.generate_instance(n, max_time ,i, false);
-  	filename = "file_" + std::to_string(i) + ".txt";
+  	filename = "../data/file_" + std::to_string(i) + ".txt";
   	I.dump_instance(filename);
   }
   //Instance I;
