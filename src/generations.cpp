@@ -9,10 +9,10 @@ Generations::Generations(string input, string output){
 	Chromosome chromosome;
 
 	instance.read_instance(input);
+	srand(unsigned(time(NULL)));
 	for(unsigned int i = 0; i < _POPULATION_SIZE; i++){
 		vector<Task> tasks(instance.get_tasks());
 		random_shuffle(tasks.begin(), tasks.end());
-
 		Order order;
 		order.init(tasks, instance.get_maitenances());
 		chromosome.order = order;
