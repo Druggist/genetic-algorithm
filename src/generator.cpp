@@ -7,12 +7,12 @@ int main(int argc, char * argv[]){
     std::cout << "Usage:\n" << argv[0] << "<number_of_instances> <number_of_tasks> <max_time> <start_count> <output_directory> " << endl;
     exit(0);
   }
-  if (argc == 5) {
-    m = atoi(argv[5]);
+  if (argc < 5) {
+    m = atoi(argv[4]);
     dir = "../data";
   }else{
-    m = atoi(argv[5]);
-    dir = argv[6];
+    m = atoi(argv[4]);
+    dir = argv[5];
   }
   string filename = "";
   max_time = atoi(argv[3]);
