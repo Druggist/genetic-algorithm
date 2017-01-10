@@ -61,7 +61,7 @@ def runner(argv):
             log_write("Error occured in: {} \n".format(task))
                 
 def log_write(log_mess):
-    with open("log.txt", "a") as l:
+    with open("runner_log.txt", "a") as l:
         l.write(log_mess)
 
 
