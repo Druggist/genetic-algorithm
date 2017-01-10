@@ -72,7 +72,6 @@ void Instance::read_instance(string filename){
 	string s;
 	int quantity, tmp;
 	fstream file;
-
 	file.open(filename.c_str());
 	if(file.good() == true){
 		getline(file, s); //ignoring one line
