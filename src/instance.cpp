@@ -13,6 +13,7 @@ Instance::Instance(){
 }
 
 void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
+	clear_all();
 	this->id = identifier;
 	this->tasks_number = quantity;
 	int t1_1, t1_2, rt, mt, opt;
