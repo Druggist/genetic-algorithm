@@ -18,8 +18,8 @@ int main(int argc, char * argv[]){
   max_time = atoi(argv[3]);
   quantity = atoi(argv[1]);
   n = atoi(argv[2]);
-  for (int i = 0; i < quantity; i++){
   	Instance I;
+  for (int i = 0; i < quantity; i++){
   	I.generate_instance(n, max_time ,i, false);
   	filename = dir + "/file_" + std::to_string(m) + ".txt";
   	I.dump_instance(filename);

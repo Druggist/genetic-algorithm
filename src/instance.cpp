@@ -8,8 +8,11 @@ void Instance::set_task_number(int t){
 	tasks_number = t;
 }*/
 
-void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
+Instance::Instance(){
 	srand(time(NULL));
+}
+
+void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
 	this->id = identifier;
 	this->tasks_number = quantity;
 	int t1_1, t1_2, rt, mt, opt;

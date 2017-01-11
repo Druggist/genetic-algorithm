@@ -26,6 +26,7 @@ private:
 	void clear_task_v();
 	void clear_maitenance_v();
 public:
+	Instance();
 	vector<Task> get_tasks();
 	vector<Maitenance> get_maitenances();
 	void generate_instance(int, int, int, bool);
