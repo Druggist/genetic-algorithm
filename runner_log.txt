@@ -1,0 +1,202 @@
+	 STARTING JOB 2017-01-11 14:52:17 
+	 STARTING JOB 2017-01-11 14:52:26 
+	 STARTING JOB 2017-01-11 14:52:38 
+Task done! No errors occured!
+
+
+	 STARTING JOB 2017-01-11 14:53:01 
+Task done! No errors occured!
+
+
+	 STARTING JOB 2017-01-11 14:53:04 
+Task done! No errors occured!
+
+
+	 STARTING JOB 2017-01-11 14:53:25 
+	 STARTING JOB 2017-01-11 14:57:31 
+	 STARTING JOB 2017-01-11 15:00:33 
+	 STARTING JOB 2017-01-11 15:00:56 
+	 STARTING JOB 2017-01-11 15:02:49 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+Process for file_12.txt executed with code 0 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
+Process for file_3.txt executed with code 0 
+Process for file_10.txt executed with code 0 
+Process for file_5.txt executed with code 0 
+Process for file_7.txt executed with code 0 
+Process for file_8.txt executed with code 0 
+Process for file_6.txt executed with code 0 
+Process for file_1.txt executed with code 0 
+Process for file_14.txt executed with code 0 
+Process for file_0.txt executed with code 0 
+Process for file_18.txt executed with code 0 
+Process for file_2.txt executed with code 0 
+Process for file_13.txt executed with code 0 
+Process for file_15.txt executed with code 0 
+Process for file_11.txt executed with code 0 
+Process for file_9.txt executed with code 0 
+Process for file_4.txt executed with code 0 
+	 STARTING JOB 2017-01-11 18:02:43 
+Process for file_16.txt executed with code 0 
+Process for file_19.txt executed with code 0 
+Process for file_17.txt executed with code 0 
