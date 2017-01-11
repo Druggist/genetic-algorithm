@@ -19,10 +19,13 @@ Generations::Generations(string input, string output){
 		chromosome.rank = 0;
 		this->population.push_back(chromosome);
 	}
+
+	selection();
 	sort_population();
 	this->previous_population = population;
 	this->maintanance_v = instance.get_maitenances();
 	this->first_order = population[0].order.get_exectime();
+	this->elite.push_back(this->population[0]);
 }
 
 int Generations::average(){
