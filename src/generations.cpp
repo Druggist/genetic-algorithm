@@ -184,6 +184,7 @@ void Generations::dump_generation(string filename){
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
 	this->population.insert(population.begin(), elite.begin(), elite.end());
+	selection();
 	sort_population();
 	dump << population[0].order.get_exectime() << d << first_order << endl;
 	dump << "M1:";
