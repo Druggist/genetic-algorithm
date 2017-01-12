@@ -285,11 +285,15 @@ void Generations::dump_generation(string filename){
 
 bool Generations::time_exceeded(){
 	clock_t end = clock();
-	double elapsed_secs = double(end - this->begin_exec) / CLOCKS_PER_SEC;;
+	double elapsed_secs = double(end - this->begin_exec) / CLOCKS_PER_SEC;
 	if(elapsed_secs > _EXEC_TIME_SECS){
 		dump_generation(this->output);
 		exit(0);
 		return true;
 	}
 	return false;
+}
+
+clock_t Generations::get_begin_exec(){
+	return this->begin_exec;
 }
