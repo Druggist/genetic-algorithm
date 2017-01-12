@@ -19,10 +19,13 @@ Generations::Generations(string input, string output){
 		chromosome.rank = 0;
 		this->population.push_back(chromosome);
 	}
+
+	selection();
 	sort_population();
 	this->previous_population = population;
 	this->maintanance_v = instance.get_maitenances();
 	this->first_order = population[0].order.get_exectime();
+	this->elite.push_back(this->population[0]);
 }
 
 int Generations::average(){
@@ -181,6 +184,7 @@ void Generations::dump_generation(string filename){
 	dump << "***" /*<< id*/ << "****" << endl;
 	//rank
 	this->population.insert(population.begin(), elite.begin(), elite.end());
+	selection();
 	sort_population();
 	dump << population[0].order.get_exectime() << d << first_order << endl;
 	dump << "M1:";
@@ -281,11 +285,15 @@ void Generations::dump_generation(string filename){
 
 bool Generations::time_exceeded(){
 	clock_t end = clock();
-	double elapsed_secs = double(end - this->begin_exec) / CLOCKS_PER_SEC;;
+	double elapsed_secs = double(end - this->begin_exec) / CLOCKS_PER_SEC;
 	if(elapsed_secs > _EXEC_TIME_SECS){
 		dump_generation(this->output);
 		exit(0);
 		return true;
 	}
 	return false;
+}
+
+clock_t Generations::get_begin_exec(){
+	return this->begin_exec;
 }

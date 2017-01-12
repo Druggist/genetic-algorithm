@@ -48,6 +48,7 @@ class Generations{
 		void sort_population();
 		bool time_exceeded();
 	public:
+		clock_t get_begin_exec();
 		void next_generation();
 		Generations(string, string);
         void dump_generation(string);

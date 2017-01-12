@@ -8,15 +8,19 @@ void Instance::set_task_number(int t){
 	tasks_number = t;
 }*/
 
-void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
+Instance::Instance(){
 	srand(time(NULL));
+}
+
+void Instance::generate_instance(int quantity, int max_time, int identifier, bool verbose){
+	clear_all();
 	this->id = identifier;
 	this->tasks_number = quantity;
 	int t1_1, t1_2, rt, mt, opt;
 	for (int i = 0; i < quantity; i++){
 		Task t(task_v.size());
-		t1_1 = rand() % max_time+1;
-		t1_2 = rand() % max_time+1;
+		t1_1 = rand() % max_time +1;
+		t1_2 = rand() % max_time +1;
 		if ( i < quantity/2 ){
 			rt = 0;
 		}else{
@@ -34,10 +38,11 @@ void Instance::generate_instance(int quantity, int max_time, int identifier, boo
 	if (verbose == true){
 		std::cout << "---------------------------------------------------------------------------\n";
 	}
-	for (int i = 0; i < quantity/5; i++){
+	int mmm = (quantity *  50) / 100;
+	for (int i = 0; i < mmm; i++){
 		Maitenance m(i);
-		mt = rand() % (max_time /2 ) + 1;
-		opt = mt + max_time * i;
+		mt = rand() % (max_time / 2 ) + 1;
+		opt = rand() % mt + max_time * i;
 		m.set_start_t(mt);
 		m.set_duration(opt);
 		if (verbose == true){
