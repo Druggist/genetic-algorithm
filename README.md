@@ -1,2 +1,4 @@
 # Genetic algorithm
 Algorithm that arranges tasks with restrictions onto two separate machines.
+
+c8db3abaddd1483c07ce5c2ea29d0626fd0da25e71f5955a71cadda4bc8e811aa4c3accd9789aa426a58ef27e31da8dc9f087ea16118607b6fe2ba58dd5154a5  -
